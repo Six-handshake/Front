@@ -9,7 +9,8 @@
     "build:tailwind": "npx tailwindcss -i ./styles.css -o ./dist/styles.css",
     "build": "tsc && vite build && npm run build:tailwind",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "SET HOST=46.48.3.74 && react-scripts start"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.0.2",
