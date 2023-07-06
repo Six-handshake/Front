@@ -6,7 +6,7 @@ const TodosContext = React.createContext({
     fetchTodos: () => {},
 });
 
-export default function Todos() {
+export function Todos() {
     const [todos, setTodos] = useState([]);
     const fetchTodos = async () => {
         const response = await fetch("http://localhost:1234/todo");
