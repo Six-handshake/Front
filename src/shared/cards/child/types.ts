@@ -1,6 +1,7 @@
-export interface CardChildProps {
+export interface CardChildPropsType {
     companyName: string,
     id: string
     adress?: string,
     description?: string,
+    phone?: string,
 }
