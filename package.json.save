@@ -1,9 +1,9 @@
-{
+"proxy": "http://localhost:3001/",{
   "name": "six-handsnakes",
   "private": true,
   "version": "0.0.0",
+  
   "type": "module",
-  "proxy":"http://localhost:1234",
   "scripts": {
     "dev": "concurrently \"vite\" \"npm run tailwind\"",
     "tailwind": "npx tailwindcss -i ./styles.css -o ./dist/styles.css --watch",
@@ -12,7 +12,7 @@
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "start": "SET HOST=46.48.3.74 && react-scripts start"
-  },
+ },
   "dependencies": {
     "@ant-design/icons": "^5.1.4",
     "@chakra-ui/react": "^2.0.2",

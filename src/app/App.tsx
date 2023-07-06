@@ -13,7 +13,7 @@ function App() {
     function Todos() {
         const [todos, setTodos] = useState([]);
         const fetchTodos = async () => {
-            const response = await fetch("http://localhost:1234/todo");
+            const response = await fetch("api");
             const todos = await response.json();
             setTodos(todos.data);
         };
