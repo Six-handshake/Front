@@ -32,7 +32,7 @@ function App() {
         );
     }
     function AddTodo() {
-        const [item, setItem] = React.useState("");
+        const [message, setItem] = React.useState("");
         const { todos, fetchTodos } = React.useContext(TodosContext);
 
         const handleInput = (event: any) => {
@@ -42,7 +42,7 @@ function App() {
         const handleSubmit = () => {
             const newTodo = {
                 id: todos.length + 1,
-                item: item,
+                message: message,
             };
 
             fetch("/api/todo", {
