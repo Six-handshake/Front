@@ -36,12 +36,44 @@ const MyFormItem = ({ name, ...props }: FormItemProps) => {
 
 const InputKonterAgent = memo<InputKonterAgentPropsType>(
     function InputKonterAgent({}) {
-        const onFinish = (value: object) => {
-            console.log(value);
+        const TodosContext = React.createContext({
+            todos: [],
+            fetchTodos: () => {},
+        });
+
+        const [firstAgent, setItem] = React.useState("");
+        const [secondAgent, setItemSec] = React.useState("");
+
+        const { todos, fetchTodos } = React.useContext(TodosContext);
+
+        const handleInputfirstAg = (event: any) => {
+            setItem(event.target.value);
         };
+        const handleInputsecAg = (event: any) => {
+            setItemSec(event.target.value);
+        };
+        const handleSubmit = () => {
+            const newTodo = {
+                index1: firstAgent,
+                index2: secondAgent,
+            };
+
+            fetch("/api/find", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newTodo),
+            }).then(fetchTodos);
+        };
+        // const onFinish = (value: object) => {
+        //     console.log(value);
+        // };
 
         return (
-            <Form name="form_item_path" layout="vertical" onFinish={onFinish}>
+            <Form
+                name="form_item_path"
+                layout="vertical"
+                onFinish={handleSubmit}
+            >
                 <MyFormItemGroup prefix={["user"]}>
                     <MyFormItemGroup prefix={["name"]}>
                         <MyFormItem
@@ -49,13 +81,13 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
                             label="Введите первого контрагента"
                             rules={[{ required: true }]}
                         >
-                            <Input />
+                            <Input onChange={handleInputfirstAg} />
                         </MyFormItem>
                         <MyFormItem
                             name="secondName"
                             label="Введите второго контрагента"
                         >
-                            <Input />
+                            <Input onChange={handleInputsecAg} />
                         </MyFormItem>
                     </MyFormItemGroup>
                 </MyFormItemGroup>
@@ -67,6 +99,18 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
                 >
                     Submit
                 </Button>
+                <div>
+                    {todos.map((todo) => {
+                        return (
+                            <div>
+                                <div>{todo.firstname}</div>
+                                <div>{todo.lastname}</div>
+                                <div>{todo.patronymic}</div>
+                                <div>{todo.inn}</div>
+                            </div>
+                        );
+                    })}
+                </div>
             </Form>
         );
     }

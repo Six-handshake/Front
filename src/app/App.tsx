@@ -23,11 +23,11 @@ function App() {
         return (
             <TodosContext.Provider value={{ todos, fetchTodos }}>
                 <AddTodo />
-                <Stack spacing={5}>
+                {/* <Stack spacing={5}>
                     {todos.map((todo) => (
                         <b>{todo.message}</b>
                     ))}
-                </Stack>
+                </Stack> */}
             </TodosContext.Provider>
         );
     }
