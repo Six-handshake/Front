@@ -2,7 +2,7 @@ import { CardChild } from "../shared/cards";
 import { InputKonterAgent } from "../shared/input";
 import { Container } from "../shared/container";
 import React, { useEffect, useState } from "react";
-import { Stack } from "@chakra-ui/react";
+import { Stack, InputGroup, Input } from "@chakra-ui/react";
 
 function App() {
     const TodosContext = React.createContext({
@@ -13,7 +13,7 @@ function App() {
     function Todos() {
         const [todos, setTodos] = useState([]);
         const fetchTodos = async () => {
-            const response = await fetch("api");
+            const response = await fetch("api/todo");
             const todos = await response.json();
             setTodos(todos.data);
         };
@@ -22,12 +22,48 @@ function App() {
         }, []);
         return (
             <TodosContext.Provider value={{ todos, fetchTodos }}>
+                <AddTodo />
                 <Stack spacing={5}>
                     {todos.map((todo) => (
                         <b>{todo.message}</b>
                     ))}
                 </Stack>
             </TodosContext.Provider>
+        );
+    }
+    function AddTodo() {
+        const [item, setItem] = React.useState("");
+        const { todos, fetchTodos } = React.useContext(TodosContext);
+
+        const handleInput = (event: any) => {
+            setItem(event.target.value);
+        };
+
+        const handleSubmit = () => {
+            const newTodo = {
+                id: todos.length + 1,
+                item: item,
+            };
+
+            fetch("/api/todo", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newTodo),
+            }).then(fetchTodos);
+        };
+
+        return (
+            <form onSubmit={handleSubmit}>
+                <InputGroup size="md">
+                    <Input
+                        pr="4.5rem"
+                        type="text"
+                        placeholder="Add a todo item"
+                        aria-label="Add a todo item"
+                        onChange={handleInput}
+                    />
+                </InputGroup>
+            </form>
         );
     }
     return (
