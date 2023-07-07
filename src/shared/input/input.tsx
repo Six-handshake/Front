@@ -37,7 +37,12 @@ const MyFormItem = ({ name, ...props }: FormItemProps) => {
 const InputKonterAgent = memo<InputKonterAgentPropsType>(
     function InputKonterAgent({}) {
         const TodosContext = React.createContext({
-            todos: [],
+            todos: {
+                firstname: "",
+                lastname: "",
+                patronymic: "",
+                inn: "",
+            },
             fetchTodos: () => {},
         });
 
@@ -100,16 +105,12 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
                     Submit
                 </Button>
                 <div>
-                    {todos.map((todo) => {
-                        return (
-                            <div>
-                                <div>{todo.firstname}</div>
-                                <div>{todo.lastname}</div>
-                                <div>{todo.patronymic}</div>
-                                <div>{todo.inn}</div>
-                            </div>
-                        );
-                    })}
+                    <div>
+                        <div>{todos.firstname}</div>
+                        <div>{todos.lastname}</div>
+                        <div>{todos.patronymic}</div>
+                        <div>{todos.inn}</div>
+                    </div>
                 </div>
             </Form>
         );
