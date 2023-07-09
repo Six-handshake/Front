@@ -3,6 +3,39 @@ import { InputKonterAgent } from "../shared/input";
 import { Container } from "../shared/container";
 import React, { useEffect, useState } from "react";
 import { Stack, InputGroup, Input } from "@chakra-ui/react";
+import CardBoard from "../shared/cardBoard/CardBoard";
+// import ReactFlow, {
+//     MiniMap,
+//     Controls,
+//     Background,
+//     useNodesState,
+//     useEdgesState,
+//     addEdge,
+//   } from 'reactflow';
+
+// const elements = [
+//     {
+//         id: '1',
+//         type: 'input',
+//         data: { label: 'Входная нода' },
+//         position: {x: 100, y: 50}
+//     },
+//     {
+//         id: '2',
+//         type: 'input',
+//         data: { label: 'Входная нода 2' },
+//         position: {x: 300, y: 50}
+//     },
+// ]
+
+// const initialEdges = [{ id: 'e1-2', source: '1', target: '2' }];
+
+// const minimapStyle = {
+//     height: 500,
+//     width: 1000,
+//     backgroundColor: '#B8CEFF'
+//   };
+
 
 function App() {
     const TodosContext = React.createContext({
@@ -66,8 +99,16 @@ function App() {
             </form>
         );
     }
+
+//     const [nodes, setNodes, onNodesChange] = useNodesState(elements);
+//   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
     return (
         <Container>
+            {/* <div className="h-80 w-100">
+            </div> */}
+            <div className="h-80 w-100">
+                <CardBoard />
+            </div>
             <div className="w-full h-screen flex flex-col justify-left gap-7">
                 <div className=" w-1/3">
                     <InputKonterAgent />

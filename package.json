@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "proxy":"http://localhost:1234",
+  "proxy": "http://localhost:1234",
   "scripts": {
     "dev": "concurrently \"vite\" \"npm run tailwind\"",
     "tailwind": "npx tailwindcss -i ./styles.css -o ./dist/styles.css --watch",
@@ -22,7 +22,8 @@
     "concurrently": "^8.2.0",
     "emotion-theming": "^11.0.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "reactflow": "^11.7.4"
   },
   "devDependencies": {
     "@types/react": "18.0.37",
