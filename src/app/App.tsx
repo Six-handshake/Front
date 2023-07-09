@@ -2,7 +2,8 @@ import { CardChild } from "../shared/cards";
 import { InputKonterAgent } from "../shared/input";
 import { Container } from "../shared/container";
 import React, { useEffect, useState } from "react";
-import { Stack, InputGroup, Input } from "@chakra-ui/react";
+import { InputGroup, Input } from "@chakra-ui/react";
+import { CardsBoard } from "../shared/cardsBoard";
 
 function App() {
     const TodosContext = React.createContext({
@@ -23,11 +24,6 @@ function App() {
         return (
             <TodosContext.Provider value={{ todos, fetchTodos }}>
                 <AddTodo />
-                {/* <Stack spacing={5}>
-                    {todos.map((todo) => (
-                        <b>{todo.message}</b>
-                    ))}
-                </Stack> */}
             </TodosContext.Provider>
         );
     }
@@ -68,6 +64,9 @@ function App() {
     }
     return (
         <Container>
+            <div className="h-80 w-100">
+                <CardsBoard />
+            </div>
             <div className="w-full h-screen flex flex-col justify-left gap-7">
                 <div className=" w-1/3">
                     <InputKonterAgent />
