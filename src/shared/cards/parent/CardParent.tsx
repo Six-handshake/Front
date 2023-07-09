@@ -1,11 +1,11 @@
-import React from 'react';
+import {memo} from 'react';
 
-function CardParent(props) {
+const CardParent = memo((props) => {
     return (
         <div>
             
         </div>
     );
-}
+})
 
-export default CardParent;
+export {CardParent};

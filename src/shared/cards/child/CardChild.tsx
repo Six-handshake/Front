@@ -13,16 +13,15 @@ const CardChild = memo<CardChildPropsType>(function CardChild({
         <Card
             title={companyName}
             extra={<a href="#">More</a>}
-            style={{ width: 300 }}
             className=""
         >
             <Typography.Paragraph>{description}</Typography.Paragraph>
-            <Typography.Paragraph>
+            {adress && <Typography.Paragraph>
                 <CompassOutlined /> Адресс {adress}
-            </Typography.Paragraph>
-            <Typography.Paragraph>
+            </Typography.Paragraph>}
+            {phone && <Typography.Paragraph>
                 <PhoneOutlined /> Телефон {phone}
-            </Typography.Paragraph>
+            </Typography.Paragraph>}
         </Card>
     );
 });
