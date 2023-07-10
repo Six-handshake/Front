@@ -64,26 +64,13 @@ function App() {
     }
     return (
         <Container>
+            <div className=" w-1/3">
+                <InputKonterAgent />
+            </div>
             <div className="h-80 w-100">
                 <CardsBoard />
             </div>
             <div className="w-full h-screen flex flex-col justify-left gap-7">
-                <div className=" w-1/3">
-                    <InputKonterAgent />
-                </div>
-                <div>
-                    <CardChild
-                        companyName="Тензор"
-                        adress="Максима Горького 24"
-                        id="1"
-                        phone="79999999999"
-                    />
-                    <CardChild
-                        companyName="Тензор"
-                        adress="Максима Горького 24"
-                        id="2"
-                    />
-                </div>
                 <div>{Todos()}</div>
             </div>
         </Container>

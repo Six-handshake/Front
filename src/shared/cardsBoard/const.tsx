@@ -1,8 +1,8 @@
-import { MarkerType, Position } from 'reactflow';
-import { initialNodesType } from './types';
+import { MarkerType, Position, Node, Edge, EdgeTypes } from 'reactflow';
 import { CardChild } from '../cards';
+import { PercentContainer } from '../../UI';
 
-const initialNodes : initialNodesType[]= [
+const initialNodes : Node[]= [
   {
     id: '7',
     type: 'default',
@@ -45,12 +45,20 @@ const initialNodes : initialNodesType[]= [
   },
 ];
 
-const initialEdges = [
-  { id: 'e1-3', source: '7', target: '8', label: '80%', 
+const initialEdges : Edge[] = [
+  { id: 'e1-3', source: '7', target: '8', 
+    data: {
+      label: '80%'
+    },
+    type: 'custom', 
     markerEnd: {
       type: MarkerType.ArrowClosed,
     }
   }
 ];
 
-export {initialEdges, initialNodes};
+const edgeTypes: EdgeTypes = {
+  custom: PercentContainer,
+};
+
+export {initialEdges, initialNodes, edgeTypes};
