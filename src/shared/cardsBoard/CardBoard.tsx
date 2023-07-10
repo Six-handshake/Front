@@ -1,11 +1,9 @@
 import ReactFlow, {
   MiniMap,
-  Controls,
-  Background,
   useNodesState,
   useEdgesState } from 'reactflow';
 import 'reactflow/dist/style.css';
-import { initialNodes, initialEdges } from './const';
+import { initialNodes, initialEdges, edgeTypes } from './const';
 
 const minimapStyle = {
   height: 120,
@@ -22,11 +20,12 @@ const CardsBoard = () => {
       onNodesChange={onNodesChange}
       onEdgesChange={onEdgesChange}
       fitView
-      attributionPosition="top-right"
+      // attributionPosition="top-left"
+      edgeTypes={edgeTypes}
     >
-      <MiniMap style={minimapStyle} zoomable pannable />
-      <Controls />
-      <Background color="#aaa" gap={16} />
+      <MiniMap style={minimapStyle} zoomable pannable/>
+      {/* <Controls /> */}
+      {/* <Background color="#aaa" gap={16} /> */}
     </ReactFlow>
   );
 };
