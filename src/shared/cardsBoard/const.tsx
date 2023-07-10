@@ -1,8 +1,28 @@
 import { MarkerType, Position, Node, Edge, EdgeTypes } from 'reactflow';
-import { CardChild } from '../cards';
+import { CardChild, CardParent } from '../cards';
 import { PercentContainer } from '../../UI';
 
 const initialNodes : Node[]= [
+  {
+    id: '6',
+    type: 'default',
+    style: {
+      width: 300,
+    },
+    data: {
+      label: (
+        <CardParent
+          title={'Елисеев Д.В'}
+          role={'Генеральный директор'}
+          id={'6'} 
+        />
+      ),
+    },
+    selectable: false,
+    position: { x: -900, y: 500 },
+    sourcePosition: Position.Left,
+    targetPosition: Position.Right
+  },
   {
     id: '7',
     type: 'default',
@@ -15,7 +35,7 @@ const initialNodes : Node[]= [
             companyName="Тензор"
             adress="Максима Горького 24"
             phone={'+79999999999'}
-            id="2"
+            id="7"
         />
       ),
     },
@@ -34,7 +54,7 @@ const initialNodes : Node[]= [
       label: (
         <CardChild
             companyName="Тензор"
-            id="2"
+            id="8"
         />
       ),
     },
@@ -54,6 +74,12 @@ const initialEdges : Edge[] = [
     markerEnd: {
       type: MarkerType.ArrowClosed,
     }
+  },
+  { 
+    id: 'e1-4', 
+    source: '6', 
+    target: '7',
+    type: 'step'
   }
 ];
 
