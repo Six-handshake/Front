@@ -20,12 +20,9 @@ const CardsBoard = () => {
       onNodesChange={onNodesChange}
       onEdgesChange={onEdgesChange}
       fitView
-      // attributionPosition="top-left"
       edgeTypes={edgeTypes}
     >
       <MiniMap style={minimapStyle} zoomable pannable/>
-      {/* <Controls /> */}
-      {/* <Background color="#aaa" gap={16} /> */}
     </ReactFlow>
   );
 };
