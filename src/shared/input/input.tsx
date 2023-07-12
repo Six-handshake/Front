@@ -35,7 +35,7 @@ const MyFormItem = ({ name, ...props }: FormItemProps) => {
 };
 
 const InputKonterAgent = memo<InputKonterAgentPropsType>(
-    function InputKonterAgent({}) {
+    function InputKonterAgent({...props}) {
         const TodosContext = React.createContext({
             todos: {
                 firstname: "",
@@ -43,7 +43,7 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
                 patronymic: "",
                 inn: "",
             },
-            fetchTodos: () => {},
+            fetchTodos: () => {return undefined},
         });
 
         const [firstAgent, setItem] = React.useState("");
@@ -51,10 +51,10 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
 
         const { todos, fetchTodos } = React.useContext(TodosContext);
 
-        const handleInputfirstAg = (event: any) => {
+        const handleInputfirstAg = (event : React.ChangeEvent<HTMLInputElement>) => {
             setItem(event.target.value);
         };
-        const handleInputsecAg = (event: any) => {
+        const handleInputsecAg = (event: React.ChangeEvent<HTMLInputElement>) => {
             setItemSec(event.target.value);
         };
         const handleSubmit = () => {
