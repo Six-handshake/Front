@@ -1,7 +1,9 @@
 export interface CardChildPropsType {
-    companyName: string,
-    id: string
-    adress?: string,
-    description?: string,
-    phone?: string,
+    data: {
+        companyName?: string,
+        id?: string
+        adress?: string,
+        description?: string,
+        phone?: string, 
+    }
 }

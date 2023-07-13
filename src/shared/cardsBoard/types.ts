@@ -1,8 +1,8 @@
 import { Edge, Node } from "reactflow";
 
-type ConvertedContragetsData = {
+type ConvertedContragentsData = {
     nodes: Node[],
     edges: Edge[]
 };
 
-export type {ConvertedContragetsData};
+export type {ConvertedContragentsData};

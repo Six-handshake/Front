@@ -1,4 +1,4 @@
-import { MarkerType, Position, Node, Edge, EdgeTypes } from 'reactflow';
+import { MarkerType, Position, Node, Edge, EdgeTypes, NodeTypes } from 'reactflow';
 import { CardChild, CardParent } from '../cards';
 import { PercentContainer } from '../../UI';
 
@@ -53,4 +53,11 @@ const edgeTypes: EdgeTypes = {
   custom: PercentContainer,
 };
 
-export {initialEdges, initialNodes, edgeTypes};
+const nodeTypes: NodeTypes = {
+  parentNode: CardParent,
+  childNode: CardChild
+};
+
+
+
+export {initialEdges, initialNodes, edgeTypes, nodeTypes};

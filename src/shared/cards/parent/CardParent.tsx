@@ -1,10 +1,10 @@
 import { memo } from "react";
 import { Card } from "antd";
 import { CardParentPropsType } from "./types";
+import { Handle, Position } from "reactflow";
 
 const CardParent = memo<CardParentPropsType>(function CardParent({
-    role,
-    title
+    data
 }) {
     return (
         <Card
@@ -12,10 +12,11 @@ const CardParent = memo<CardParentPropsType>(function CardParent({
             className=""
             style={{background: 'lightgray'}}            
         >
+            {/* <Handle type='target' position={Position.Top}/> */}
             <p>
-                {`${title} `}
-                <b>{role}</b>
+                {`${data.title} `}
             </p>
+            <Handle type='source' position={Position.Left}/>
         </Card>
     );
 });
