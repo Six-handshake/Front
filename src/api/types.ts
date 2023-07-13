@@ -21,7 +21,9 @@ type Node = {
     id: string,
     info: PrivateFaceInfo & LegalFaceInfo,
     type: string,
-    depth: string
+    depth_x: number,
+    depth_y: number,
+    is_child: boolean
 }
 
 type Edge = {
