@@ -1,5 +1,5 @@
 interface CardParentPropsType{
-    role: string,
+    role?: string,
     title: string,
     id: string,
 }
