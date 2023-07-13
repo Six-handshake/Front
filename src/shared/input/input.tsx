@@ -31,7 +31,7 @@ const MyFormItem = ({ name, ...props }: FormItemProps) => {
     const concatName =
         name !== undefined ? [...prefixPath, ...toArr(name)] : undefined;
 
-    return <Form.Item name={concatName} {...props} />;
+    return <Form.Item className="w-1/3" name={concatName} {...props} />;
 };
 
 const InputKonterAgent = memo<InputKonterAgentPropsType>(
@@ -69,40 +69,38 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
                 body: JSON.stringify(newTodo),
             }).then(fetchTodos);
         };
-        // const onFinish = (value: object) => {
-        //     console.log(value);
-        // };
 
         return (
             <Form
                 name="form_item_path"
                 layout="vertical"
-                onFinish={handleSubmit}
+                onFinish={handleSubmit}                
             >
-                <MyFormItemGroup prefix={["user"]}>
-                    <MyFormItemGroup prefix={["name"]}>
-                        <MyFormItem
-                            name="firstName"
-                            label="Введите первого контрагента"
-                            rules={[{ required: true }]}
-                        >
-                            <Input onChange={handleInputfirstAg} />
-                        </MyFormItem>
-                        <MyFormItem
-                            name="secondName"
-                            label="Введите второго контрагента"
-                        >
-                            <Input onChange={handleInputsecAg} />
-                        </MyFormItem>
-                    </MyFormItemGroup>
-                </MyFormItemGroup>
-
+                    <div className='flex justify-between'>
+                        <MyFormItemGroup prefix={["user"]}> 
+                            <MyFormItemGroup prefix={["name"]}>
+                                <MyFormItem
+                                    name="firstName"
+                                    label="Введите первого контрагента"
+                                    rules={[{ required: true }]}
+                                >
+                                    <Input onChange={handleInputfirstAg} />
+                                </MyFormItem>
+                                <MyFormItem
+                                    name="secondName"
+                                    label="Введите второго контрагента"
+                                >
+                                    <Input onChange={handleInputsecAg} />
+                                </MyFormItem>
+                            </MyFormItemGroup>
+                        </MyFormItemGroup>
+                    </div>
                 <Button
                     type="primary"
                     htmlType="submit"
-                    className=" bg-blue-600"
+                    className=" bg-blue-600 ml-auto flex"
                 >
-                    Submit
+                    Найти
                 </Button>
                 <div>
                     <div>

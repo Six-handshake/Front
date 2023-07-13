@@ -1,2 +1,2 @@
 export { CardsBoard } from "./CardBoard";
-export type { ConvertedContragetsData } from "./types";
+export type { ConvertedContragentsData } from "./types";
