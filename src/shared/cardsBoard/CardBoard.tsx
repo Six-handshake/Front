@@ -10,16 +10,20 @@ import { useEffect, useState } from 'react';
 import { CardChild, CardParent } from '../cards';
 import { ContragentsDataType, getContragentsData } from '../../api';
 import { ConvertedContragentsData } from '.';
+import useStore from '../../store/store';
 
   const CardsBoard = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+    const storeNodes = useStore((state) => state.nodes);
+    const storeEdges = useStore((state) => state.edges);
 
   useEffect(() => {
     if (isLoading) {
         getContragentsData()
             .then((res) => {
+              console.log('res', res)
                 const convertedData = convertData(res.data);
                 setNodes(convertedData.nodes)
                 setEdges(convertedData.edges)
@@ -27,6 +31,18 @@ import { ConvertedContragentsData } from '.';
             });
     }
 });
+
+useEffect(() => {
+  // setEdges(storeEdges)
+  const contragentsData : ContragentsDataType= {edges: storeEdges, nodes: storeNodes}
+  const convertedData = convertData(contragentsData);
+  setNodes(convertedData.nodes)
+  setEdges(convertedData.edges)
+
+  console.log('convertedData.nodes', storeNodes)
+  console.log('convertedData.edges', storeEdges) 
+  
+}, [storeEdges, storeNodes]);
 
   return (
     <>    
@@ -57,12 +73,11 @@ const convertData = (responseContragents: ContragentsDataType) => {
 
   const convertedNodes : Node[] = responseNodes.map((node) => {
       const title = node.info.name === undefined ? node.info.firstname : node.info.name;
-      // const label = node.is_child 
-      //                 ? <CardChild companyName={title} id={node.id} />
-      //                 : <CardParent title={title} id={node.id} />
       const position = getNodePosition(node.depth_x, node.depth_y, node.is_child)
       const nodeType = node.is_child ? 'childNode' : 'parentNode';
-      const data = node.is_child ? { companyName: title, id: node.id } : { title: title, id: node.id }
+      const data = node.is_child 
+        ? { companyName: title, id: node.id } 
+        : { title: title, id: node.id }
 
       const convertedNode : Node = {
           id: node.id,
@@ -79,12 +94,17 @@ const convertData = (responseContragents: ContragentsDataType) => {
       return convertedNode;
   })
   
+  
   const convertedEdges : Edge[] = responseEdges.map((edge) => {
-      const convertedEdge :Edge = {
+      const percent = edge.share !== 'None' ? `${edge.share}%` : '';
+      // const label = edge.share !== 'None' ? percent : undefined
+      const type = edge.share !== 'None' ? 'custom' : 'step';
+      const convertedEdge: Edge = {
           id: `${edge.child_id}-${edge.parent_id}`,
           source: edge.parent_id,
           target: edge.child_id,
-          type: 'step'
+          type: type,
+          data: {label: percent}
       }
 
       return convertedEdge;

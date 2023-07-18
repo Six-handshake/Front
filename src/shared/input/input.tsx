@@ -3,6 +3,9 @@ import { Form, Input, Button } from "antd";
 import type { FormItemProps } from "antd";
 
 import { InputKonterAgentPropsType, MyFormItemGroupPropsType } from "./types";
+import { findRelationship } from "../../api";
+import { FindRelationshipType } from "../../api/types";
+import useStore from "../../store/store";
 
 const MyFormItemContext = React.createContext<(string | number)[]>([]);
 
@@ -36,6 +39,9 @@ const MyFormItem = ({ name, ...props }: FormItemProps) => {
 
 const InputKonterAgent = memo<InputKonterAgentPropsType>(
     function InputKonterAgent({...props}) {
+        const setNodes = useStore((state) => state.setNodes)
+        const setEdges = useStore((state) => state.setEdges)
+
         const TodosContext = React.createContext({
             todos: {
                 firstname: "",
@@ -57,17 +63,23 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
         const handleInputsecAg = (event: React.ChangeEvent<HTMLInputElement>) => {
             setItemSec(event.target.value);
         };
-        const handleSubmit = () => {
-            const newTodo = {
-                index1: firstAgent,
-                index2: secondAgent,
+
+        const handleSubmit = async() => {
+            const firstContragent = {data: firstAgent, isPerson: true, isCompany: true}
+            const secondContragent = {data: secondAgent, isPerson: true, isCompany: true}
+            const header : FindRelationshipType = {
+                firstContragent: firstContragent, 
+                secondContragent: secondContragent
             };
 
-            fetch("/api/find", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(newTodo),
-            }).then(fetchTodos);
+            const response = await findRelationship(header);
+            // fetch("/api/find", {//
+            //     method: "POST",
+            //     headers: { "Content-Type": "application/json" },
+            //     body: JSON.stringify(newTodo),
+            // }).then(fetchTodos);
+            setNodes(response.data.nodes)
+            setEdges(response.data.edges)
         };
 
         return (
