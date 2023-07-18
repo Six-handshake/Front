@@ -1,5 +1,6 @@
 import { FC } from 'react';
-import { EdgeProps, getBezierPath, EdgeLabelRenderer, BaseEdge } from 'reactflow';
+import { EdgeProps, getSmoothStepPath, EdgeLabelRenderer, BaseEdge } from 'reactflow';
+import { Position } from 'reactflow';
 
 const PercentContainer: FC<EdgeProps> = ({
   id,
@@ -11,7 +12,15 @@ const PercentContainer: FC<EdgeProps> = ({
   targetPosition,
   data,
 }) => {
-  const [edgePath, labelX, labelY] = getBezierPath({
+  // const [edgePath, labelX, labelY] = getBezierPath({
+  //   sourceX,
+  //   sourceY,
+  //   sourcePosition,
+  //   targetX,
+  //   targetY,
+  //   targetPosition,
+  // });
+  const [edgePath, labelX, labelY] = getSmoothStepPath({
     sourceX,
     sourceY,
     sourcePosition,
@@ -22,12 +31,21 @@ const PercentContainer: FC<EdgeProps> = ({
 
   return (
     <>
-      <BaseEdge id={id} path={edgePath} />
+      {/* <StepEdge id={id} 
+        source={''} 
+        target={''} 
+        sourceX={sourceX} 
+        sourceY={sourceY} 
+        targetX={targetX} 
+        targetY={targetY} 
+        sourcePosition={sourcePosition} 
+        targetPosition={targetPosition} /> */}
+        <BaseEdge path={edgePath} id={id} />
       <EdgeLabelRenderer>
         <div
           style={{
             position: 'absolute',
-            transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`,
+            transform: `translate(-150%, -50%) translate(${sourceX}px,${sourceY}px)`,
             background: '#fff',
             paddingLeft: 3,
             paddingRight: 3,

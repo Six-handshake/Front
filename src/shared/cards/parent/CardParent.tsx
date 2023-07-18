@@ -2,6 +2,7 @@ import { memo } from "react";
 import { Card } from "antd";
 import { CardParentPropsType } from "./types";
 import { Handle, Position } from "reactflow";
+import { IdcardOutlined } from "@ant-design/icons";
 
 const CardParent = memo<CardParentPropsType>(function CardParent({
     data
@@ -10,11 +11,11 @@ const CardParent = memo<CardParentPropsType>(function CardParent({
         <Card
             size={'small'}
             className=""
-            style={{background: 'lightgray'}}            
-        >
-            {/* <Handle type='target' position={Position.Top}/> */}
-            <p>
-                {`${data.title} `}
+            style={{background: '#838383'}}            
+            >
+            <Handle type='target' position={Position.Right}/>
+            <p className="text-white flex gap-2 flex-row items-center">
+                <IdcardOutlined className="text-black " style={{fontSize: '28px'}}/><p>{`${data.title} `}</p>
             </p>
             <Handle type='source' position={Position.Left}/>
         </Card>

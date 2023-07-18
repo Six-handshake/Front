@@ -23,45 +23,36 @@ type Node = {
     type: string,
     depth_x: number,
     depth_y: number,
-    is_child: boolean
+    is_child: boolean,
+    
+
 }
 
 type Edge = {
     parent_id: string,
     child_id: string,
-    kind: string
+    kind: string,
+    share: string,
+    date_begin: string,
+    date_end: string
 }
 
 type ContragentsDataType = {
    nodes : Node[],
    edges: Edge[] 
 };
-// type NodesDataType = {
-//     parent: {
-//         inn: string;
-//         revenue: number;
-//         profit: number;
-//         name: string;
-//         is_ip: boolean;
-//         reg_date: string;
-//         liq_date: string;
-//         okved: string;
-//         region: string;
-//         id: string;
-//     };
-//     child: {
-//         inn: string;
-//         revenue: number;
-//         profit: number;
-//         name: string;
-//         is_ip: boolean;
-//         reg_date: string;
-//         liq_date: object;
-//         okved: string;
-//         region: string;
-//         id: string;
-//     };
-//     depth: number;
-// }[];
 
-export type {ContragentsDataType, Node, Edge};
+type FindRelationshipType = {
+    firstContragent: {
+        data: string,
+        isPerson: boolean,
+        isCompany: boolean
+    }
+    secondContragent:{
+        data: string,
+        isPerson: boolean,
+        isCompany: boolean
+    }
+}
+
+export type {ContragentsDataType, Node, Edge, FindRelationshipType};
