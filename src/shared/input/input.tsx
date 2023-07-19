@@ -1,13 +1,22 @@
 import React, { memo } from "react";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, Checkbox } from "antd";
 import type { FormItemProps } from "antd";
-
 import { InputKonterAgentPropsType, MyFormItemGroupPropsType } from "./types";
 import { findRelationship } from "../../api";
 import { FindRelationshipType } from "../../api/types";
 import useStore from "../../store/store";
+import { CheckboxValueType } from "antd/es/checkbox/Group";
+import { useState } from "react";
+import { convertData } from "../../calculate";
+import { Node, Edge } from "../../api";
+import { notification } from "antd";
 
 const MyFormItemContext = React.createContext<(string | number)[]>([]);
+const options = [
+    { label: 'Кампаниям', value: 'Company' },
+    { label: 'Людям', value: 'People' },
+  ];
+
 
 function toArr(
     str: string | number | (string | number)[]
@@ -52,8 +61,10 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
             fetchTodos: () => {return undefined},
         });
 
-        const [firstAgent, setItem] = React.useState("");
-        const [secondAgent, setItemSec] = React.useState("");
+        const [firstAgent, setItem] = useState("");
+        const [secondAgent, setItemSec] = useState("");
+        const [firstFilters, setFirstFilters] = useState<CheckboxValueType[]>(['Company', 'People']);
+        const [secondFilters, setSecondFilters] = useState<CheckboxValueType[]>(['Company', 'People']);
 
         const { todos, fetchTodos } = React.useContext(TodosContext);
 
@@ -65,21 +76,36 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
         };
 
         const handleSubmit = async() => {
-            const firstContragent = {data: firstAgent, isPerson: true, isCompany: true}
-            const secondContragent = {data: secondAgent, isPerson: true, isCompany: true}
+            const firstContragent = {
+                data: firstAgent, 
+                isPerson: firstFilters.includes('People'), 
+                isCompany: firstFilters.includes('Company')
+            }
+            const secondContragent = {
+                data: secondAgent, 
+                isPerson: secondFilters.includes('People'), 
+                isCompany: secondFilters.includes('Company')
+            }
+
             const header : FindRelationshipType = {
                 firstContragent: firstContragent, 
                 secondContragent: secondContragent
             };
 
-            const response = await findRelationship(header);
-            // fetch("/api/find", {//
-            //     method: "POST",
-            //     headers: { "Content-Type": "application/json" },
-            //     body: JSON.stringify(newTodo),
-            // }).then(fetchTodos);
-            setNodes(response.data.nodes)
-            setEdges(response.data.edges)
+            const response = await findRelationship(header); 
+            response
+                .then(() => {
+                    setNodes(response.nodes)
+                    setEdges(response.edges)
+                })
+        };
+
+        const onChangeFirstCheckboxes = (checkedValues: CheckboxValueType[]) => {
+            setFirstFilters(checkedValues);
+        };
+        
+        const onChangeSecondCheckboxes = (checkedValues: CheckboxValueType[]) => {
+            setSecondFilters(checkedValues);
         };
 
         return (
@@ -94,15 +120,17 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
                                 <MyFormItem
                                     name="firstName"
                                     label="Введите первого контрагента"
-                                    rules={[{ required: true }]}
+                                    // rules={[{ required: true }]}
                                 >
                                     <Input onChange={handleInputfirstAg} />
+                                    <div>Искать по: <Checkbox.Group options={options} defaultValue={firstFilters} onChange={onChangeFirstCheckboxes}/></div>
                                 </MyFormItem>
                                 <MyFormItem
                                     name="secondName"
                                     label="Введите второго контрагента"
                                 >
                                     <Input onChange={handleInputsecAg} />
+                                    <div>Искать по: <Checkbox.Group options={options} defaultValue={secondFilters} onChange={onChangeSecondCheckboxes}/></div>
                                 </MyFormItem>
                             </MyFormItemGroup>
                         </MyFormItemGroup>

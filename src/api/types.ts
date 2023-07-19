@@ -23,9 +23,7 @@ type Node = {
     type: string,
     depth_x: number,
     depth_y: number,
-    is_child: boolean,
-    
-
+    is_child: boolean
 }
 
 type Edge = {
