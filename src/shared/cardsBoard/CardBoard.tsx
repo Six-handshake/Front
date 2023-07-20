@@ -9,6 +9,7 @@ import { ContragentsDataType, getContragentsData } from '../../api';
 import useStore from '../../store/store';
 import { convertData } from '../../calculate';
 
+
   const CardsBoard = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
@@ -38,7 +39,8 @@ useEffect(() => {
 }, [storeEdges, storeNodes]);
 
   return (
-    <>    
+    <> 
+    <p style={{fontSize: '32px', textAlign: 'center'}}>Визуализация связей</p>   
       {!isLoading && 
         <ReactFlow
           nodes={nodes}

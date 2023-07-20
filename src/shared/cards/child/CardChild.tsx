@@ -12,7 +12,9 @@ const CardChild = memo<CardChildPropsType>(function CardChild({
             title={data.companyName}
             extra={<BranchesOutlined />}
             className=""
-        >
+            bodyStyle={{background: 'grey', color: 'white'}}
+            headStyle={{background: 'grey', color: 'white'}}
+            >
             <Handle type='source' position={Position.Left}/>
             
             <Typography.Paragraph>{data.description}</Typography.Paragraph>

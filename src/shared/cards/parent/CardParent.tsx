@@ -11,7 +11,7 @@ const CardParent = memo<CardParentPropsType>(function CardParent({
         <Card
             size={'small'}
             className=""
-            style={{background: '#838383'}}            
+            style={{background: '#1677ff'}}            
             >
             <Handle type='target' position={Position.Right}/>
             <p className="text-white flex gap-2 flex-row items-center">
