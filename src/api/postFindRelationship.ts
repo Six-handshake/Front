@@ -1,8 +1,9 @@
 import { URL_FIND_DATA } from "./urls";
 import axios from "axios";
 import { FindRelationshipType } from "./types";
+import { notification } from "antd";
 
-const findRelationship = async (response : FindRelationshipType) => {
+const findRelationship = async (response : FindRelationshipType)  => {
     const findRelationshipServerType = {
         index1 : 
         {
@@ -17,8 +18,7 @@ const findRelationship = async (response : FindRelationshipType) => {
         }
     }
     
-    const data = await axios.post(URL_FIND_DATA, findRelationshipServerType);
-    return data;
+    return await axios.post(URL_FIND_DATA, findRelationshipServerType);
 }
 
 export {findRelationship};

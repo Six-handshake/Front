@@ -12,14 +12,6 @@ const PercentContainer: FC<EdgeProps> = ({
   targetPosition,
   data,
 }) => {
-  // const [edgePath, labelX, labelY] = getBezierPath({
-  //   sourceX,
-  //   sourceY,
-  //   sourcePosition,
-  //   targetX,
-  //   targetY,
-  //   targetPosition,
-  // });
   const [edgePath, labelX, labelY] = getSmoothStepPath({
     sourceX,
     sourceY,
@@ -31,15 +23,6 @@ const PercentContainer: FC<EdgeProps> = ({
 
   return (
     <>
-      {/* <StepEdge id={id} 
-        source={''} 
-        target={''} 
-        sourceX={sourceX} 
-        sourceY={sourceY} 
-        targetX={targetX} 
-        targetY={targetY} 
-        sourcePosition={sourcePosition} 
-        targetPosition={targetPosition} /> */}
         <BaseEdge path={edgePath} id={id} />
       <EdgeLabelRenderer>
         <div

@@ -11,11 +11,11 @@ const CardParent = memo<CardParentPropsType>(function CardParent({
         <Card
             size={'small'}
             className=""
-            style={{background: '#838383'}}            
+            style={{background: '#1677ff'}}            
             >
             <Handle type='target' position={Position.Right}/>
             <p className="text-white flex gap-2 flex-row items-center">
-                <IdcardOutlined className="text-black " style={{fontSize: '28px'}}/><p>{`${data.title} `}</p>
+                <IdcardOutlined className="text-black " style={{fontSize: '28px'}}/><p>{`${data.title} x${data.x} y${data.y} id${data.id}`}</p>
             </p>
             <Handle type='source' position={Position.Left}/>
         </Card>

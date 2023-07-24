@@ -1,3 +1,7 @@
 export { getContragentsData } from "./getNodesData";
 export { findRelationship } from "./postFindRelationship";
-export type { Node, Edge, ContragentsDataType } from "./types";
+export { findCoincidence } from "./postFindCoincidence";
+
+export type { ContragentsDataType, Node, 
+    Edge, FindRelationshipType, 
+    FindCoincidenceType } from "./types";

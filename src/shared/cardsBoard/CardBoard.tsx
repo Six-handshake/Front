@@ -1,23 +1,21 @@
 import ReactFlow, {
   Background,
   useNodesState,
-  useEdgesState, 
-  Position} from 'reactflow';
+  useEdgesState} from 'reactflow';
 import 'reactflow/dist/style.css';
 import { edgeTypes, nodeTypes } from './const';
-import { Node, Edge } from 'reactflow';
 import { useEffect, useState } from 'react';
-import { CardChild, CardParent } from '../cards';
 import { ContragentsDataType, getContragentsData } from '../../api';
-import { ConvertedContragentsData } from '.';
-import useStore from '../../store/store';
+import useData from '../../store/useData';
+import { convertData } from '../../calculate';
+
 
   const CardsBoard = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-    const storeNodes = useStore((state) => state.nodes);
-    const storeEdges = useStore((state) => state.edges);
+    const storeNodes = useData((state) => state.nodes);
+    const storeEdges = useData((state) => state.edges);
 
   useEffect(() => {
     if (isLoading) {
@@ -33,19 +31,16 @@ import useStore from '../../store/store';
 });
 
 useEffect(() => {
-  // setEdges(storeEdges)
-  const contragentsData : ContragentsDataType= {edges: storeEdges, nodes: storeNodes}
+  const contragentsData : ContragentsDataType = {edges: storeEdges, nodes: storeNodes}
   const convertedData = convertData(contragentsData);
   setNodes(convertedData.nodes)
   setEdges(convertedData.edges)
-
-  console.log('convertedData.nodes', storeNodes)
-  console.log('convertedData.edges', storeEdges) 
   
 }, [storeEdges, storeNodes]);
 
   return (
-    <>    
+    <> 
+    <p style={{fontSize: '32px', textAlign: 'center'}}>Визуализация связей</p>   
       {!isLoading && 
         <ReactFlow
           nodes={nodes}
@@ -56,7 +51,7 @@ useEffect(() => {
           maxZoom={1.5}
           minZoom={0.55}
           edgeTypes={edgeTypes}  
-          nodeTypes={nodeTypes}        
+          nodeTypes={nodeTypes}   
         >
           <Background 
             color='#ccc' 
@@ -67,62 +62,7 @@ useEffect(() => {
   );
 };
 
-const convertData = (responseContragents: ContragentsDataType) => {
-  const responseNodes = responseContragents.nodes;
-  const responseEdges = responseContragents.edges;
 
-  const convertedNodes : Node[] = responseNodes.map((node) => {
-      const title = node.info.name === undefined ? node.info.firstname : node.info.name;
-      const position = getNodePosition(node.depth_x, node.depth_y, node.is_child)
-      const nodeType = node.is_child ? 'childNode' : 'parentNode';
-      const data = node.is_child 
-        ? { companyName: title, id: node.id } 
-        : { title: title, id: node.id }
 
-      const convertedNode : Node = {
-          id: node.id,
-          type: nodeType,
-          style: {
-              width: 300
-          },
-          data: data,
-          position: position,
-          sourcePosition: Position.Left,
-          targetPosition: Position.Bottom
-      }        
-
-      return convertedNode;
-  })
-  
-  
-  const convertedEdges : Edge[] = responseEdges.map((edge) => {
-      const percent = edge.share !== 'None' ? `${edge.share}%` : '';
-      // const label = edge.share !== 'None' ? percent : undefined
-      const type = edge.share !== 'None' ? 'custom' : 'step';
-      const convertedEdge: Edge = {
-          id: `${edge.child_id}-${edge.parent_id}`,
-          source: edge.parent_id,
-          target: edge.child_id,
-          type: type,
-          data: {label: percent}
-      }
-
-      return convertedEdge;
-  })
-
-  const convertedData : ConvertedContragentsData = {
-      nodes: convertedNodes,
-      edges: convertedEdges
-  }
-
-  return convertedData;
-}
-
-const getNodePosition = (cordinateX : number, cordinateY: number, isChild: boolean) => {
-  const factorY = isChild ? 50 : 0;
-  const factorX = isChild ? 0 : 175;
-
-  return {x: cordinateX * 500 + factorX, y: cordinateY * 150 - factorY}
-}
 
 export {CardsBoard};
