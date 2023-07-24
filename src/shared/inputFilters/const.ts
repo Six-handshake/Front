@@ -417,4 +417,6 @@ const regions : RegionType[] = [
       "name": "Ярославская область"
     }
   ]
+
+  
 export {regions};

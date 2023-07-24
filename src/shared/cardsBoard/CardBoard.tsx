@@ -6,7 +6,7 @@ import 'reactflow/dist/style.css';
 import { edgeTypes, nodeTypes } from './const';
 import { useEffect, useState } from 'react';
 import { ContragentsDataType, getContragentsData } from '../../api';
-import useData from '../../store/useData';
+import useData from '../../store/useStore';
 import { convertData } from '../../calculate';
 
 

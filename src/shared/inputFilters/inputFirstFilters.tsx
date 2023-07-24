@@ -1,7 +1,6 @@
 import { Select } from "antd";
 import { regions } from ".";
 import { RegionType } from ".";
-import { useEffect } from "react";
 
 const options = convertRegion(regions)
 
@@ -13,7 +12,7 @@ function convertRegion(regions: RegionType[]) {
     return convertedRegions;
 }
 
-const InputFilters = () => {
+const InputFirstFilters = () => {
     const handleChange = (value: string[]) => {
         console.log(`selected ${value}`);
     };
@@ -31,4 +30,4 @@ const InputFilters = () => {
     </Select>
    );
 };
-export {InputFilters} ;
+export {InputFirstFilters};

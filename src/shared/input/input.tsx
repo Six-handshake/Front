@@ -3,9 +3,9 @@ import { Form, Button, Checkbox, FormItemProps, Select, SelectProps, notificatio
 import { InputKonterAgentPropsType, MyFormItemGroupPropsType } from "./types";
 import { findRelationship, findCoincidence } from "../../api";
 import { FindRelationshipType, FindCoincidenceType, FindCoincindeceRequestType } from "../../api/types";
-import useData from "../../store/useData";
 import { CheckboxValueType } from "antd/es/checkbox/Group";
-import { InputFilters } from "../inputFilters";
+import { InputFirstFilters, InputSecondFilters } from "../inputFilters";
+import useStore from "../../store/useStore";
 
 const MyFormItemContext = React.createContext<(string | number)[]>([]);
 const flagsOptions = [
@@ -43,8 +43,8 @@ const MyFormItem = ({ name, ...props }: FormItemProps) => {
 
 const InputKonterAgent = memo<InputKonterAgentPropsType>(
     function InputKonterAgent({...props}) {
-        const setNodes = useData((state) => state.setNodes)
-        const setEdges = useData((state) => state.setEdges)
+        const setNodes = useStore((state) => state.setNodes)
+        const setEdges = useStore((state) => state.setEdges)
 
         const [firstAgent, setFirstAgent] = useState("");
         const [secondAgent, setSecondAgent] = useState("");
@@ -225,6 +225,7 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
                                                 {opt.label}
                                             </Select.Option>))}
                                     </Select>
+                                    {/* <InputFirstFilters /> */}
                                     <div>Искать по: <Checkbox.Group options={flagsOptions} defaultValue={firstFilters} onChange={onChangeFirstCheckboxes}/></div>
                                 </MyFormItem>
                                 <MyFormItem
@@ -247,7 +248,7 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
                                                 {opt.label}
                                             </Select.Option>))}
                                     </Select>
-                                    <InputFilters />
+                                    {/* <InputSecondFilters /> */}
                                     <div>Искать по: <Checkbox.Group options={flagsOptions} defaultValue={secondFilters} onChange={onChangeSecondCheckboxes}/></div>
                                 </MyFormItem>
                             </MyFormItemGroup>

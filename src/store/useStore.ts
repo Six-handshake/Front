@@ -1,16 +1,35 @@
 import { create } from "zustand";
+import { Node, Edge } from "../api";
 import { RegionType } from "../shared/inputFilters";
 
-interface useInputStoreStateProps {
+interface storeStateProps {
+    nodes: Node[],
+    edges: Edge[],
     firstRegions: RegionType[],
     secondRegions: RegionType[],
     setFirstRegions: (nodes: RegionType[]) => void,
     setSecondRegions: (edges: RegionType[]) => void,
+    setNodes: (nodes: Node[]) => void,
+    setEdges: (edges: Edge[]) => void,
 }
 
-const useInput = create<useInputStoreStateProps>((set) => ({
+const useStore = create<storeStateProps>((set) => ({
+    nodes: [],
+    edges: [],
     firstRegions: [],
     secondRegions: [],
+    setNodes: (nodes: Node[]) => 
+    {
+            set(() => ({
+            nodes: nodes
+        }))
+    },
+    setEdges: (edges: Edge[]) => 
+    {
+            set(() => ({
+            edges: edges
+        }))
+    },
     setFirstRegions: (regions: RegionType[]) => 
     {
             set(() => ({
@@ -22,8 +41,7 @@ const useInput = create<useInputStoreStateProps>((set) => ({
             set(() => ({
             secondRegions: regions
         }))
-    },
-
+    }
 }));
 
-export {useInput};  
+export default useStore;  
