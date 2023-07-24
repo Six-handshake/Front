@@ -6,7 +6,7 @@ import 'reactflow/dist/style.css';
 import { edgeTypes, nodeTypes } from './const';
 import { useEffect, useState } from 'react';
 import { ContragentsDataType, getContragentsData } from '../../api';
-import useStore from '../../store/store';
+import useData from '../../store/useData';
 import { convertData } from '../../calculate';
 
 
@@ -14,8 +14,8 @@ import { convertData } from '../../calculate';
     const [isLoading, setIsLoading] = useState(true);
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-    const storeNodes = useStore((state) => state.nodes);
-    const storeEdges = useStore((state) => state.edges);
+    const storeNodes = useData((state) => state.nodes);
+    const storeEdges = useData((state) => state.edges);
 
   useEffect(() => {
     if (isLoading) {
@@ -51,7 +51,7 @@ useEffect(() => {
           maxZoom={1.5}
           minZoom={0.55}
           edgeTypes={edgeTypes}  
-          nodeTypes={nodeTypes}        
+          nodeTypes={nodeTypes}   
         >
           <Background 
             color='#ccc' 

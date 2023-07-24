@@ -53,4 +53,19 @@ type FindRelationshipType = {
     }
 }
 
-export type {ContragentsDataType, Node, Edge, FindRelationshipType};
+type FindCoincidenceType = {
+    text: string,
+    okved?: string[],
+    regions?: string[]
+}
+
+type FindCoincindeceRequestType = {
+    text: string,
+    is_person: boolean,
+    is_company: boolean,
+    inn: string,
+    okved: string,
+    region: string,
+}
+
+export type {ContragentsDataType, Node, Edge, FindRelationshipType, FindCoincidenceType, FindCoincindeceRequestType};

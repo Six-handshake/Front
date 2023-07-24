@@ -1,7 +1,5 @@
-// import { ConvertedContragentsData } from '.';
 import { ConvertedContragentsData } from '../shared/cardsBoard';
-import { Node, Edge } from 'reactflow';
-import { Position } from 'reactflow';
+import { Node, Edge, Position } from 'reactflow';
 import { ContragentsDataType } from '../api';
 
 const convertData = (responseContragents: ContragentsDataType) => {
@@ -13,11 +11,12 @@ const convertData = (responseContragents: ContragentsDataType) => {
         const position = getNodePosition(node.depth_x, node.depth_y, node.is_child)
         const nodeType = node.is_child ? 'childNode' : 'parentNode';
         const data = node.is_child 
-          ? { companyName: title, id: node.id, x: position.x, y: position.y } 
-          : { title: title, id: node.id, x: position.x, y: position.y }
+          ? { companyName: title, id: node.id, x: position.x, y: position.y, px:  node.depth_x, py: node.depth_y} 
+          : { title: title, id: node.id, x: position.x, y: position.y, px: node.depth_x, py: node.depth_y }
   
     const convertedNode : Node = {
         id: node.id,
+        draggable: false,
         type: nodeType,
         style: {
             width: 300

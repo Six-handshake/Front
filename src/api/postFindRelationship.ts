@@ -18,16 +18,7 @@ const findRelationship = async (response : FindRelationshipType)  => {
         }
     }
     
-    const data = await axios.post(URL_FIND_DATA, findRelationshipServerType)
-        .then(data => {
-            return data.data
-        })
-        .catch(err => {
-            notification.error({message: 'Связи не найдены'})
-            return err
-        });
-
-    return data;
+    return await axios.post(URL_FIND_DATA, findRelationshipServerType);
 }
 
 export {findRelationship};

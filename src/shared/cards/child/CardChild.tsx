@@ -13,11 +13,10 @@ const CardChild = memo<CardChildPropsType>(function CardChild({
             extra={<BranchesOutlined />}
             className=""
             bodyStyle={{background: 'grey', color: 'white'}}
-            headStyle={{background: 'grey', color: 'white'}}
-            >
+            headStyle={{background: 'grey', color: 'white'}}>
             <Handle type='source' position={Position.Left}/>
             
-            <Typography.Paragraph>{data.description}</Typography.Paragraph>
+            <Typography.Paragraph>{`${data.description} x${data.x} y${data.y} px${data.px} py${data.py}`}</Typography.Paragraph>
             {data.adress && <Typography.Paragraph>
                 <CompassOutlined /> Адресс {data.adress}
             </Typography.Paragraph>}
