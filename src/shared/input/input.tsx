@@ -49,8 +49,12 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
         const [firstAgent, setFirstAgent] = useState("");
         const [secondAgent, setSecondAgent] = useState("");
 
-        const [firstFilters, setFirstFilters] = useState<CheckboxValueType[]>(['Company', 'People']);
-        const [secondFilters, setSecondFilters] = useState<CheckboxValueType[]>(['Company', 'People']);
+        // const [firstFilters, setFirstFilters] = useState<CheckboxValueType[]>(['Company', 'People']);
+        // const [secondFilters, setSecondFilters] = useState<CheckboxValueType[]>(['Company', 'People']);
+        const firstFilters = useStore(state => state.firstFilters);
+        const setFirstFilters = useStore(state => state.setFirstFilters);
+        const secondFilters = useStore(state => state.secondFilters);
+        const setSecondFilters = useStore(state => state.setSecondFilters);
 
         const [firstCoincidenceList, setFirstCoincidenceList] = useState<SelectProps['options']>([]);
         const [isFirstSelectOpen, setIsFirstSelectOpen] = useState(false);
@@ -62,28 +66,29 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
             if(value.length > 2){
                 const request : FindCoincidenceType = {
                     text: value,
-                    okved: [],
+                    is_person: firstFilters.includes('People'), 
+                    is_company: firstFilters.includes('Company'), 
                     regions: []
                 } 
-                // await findCoincidence(request)
-                //     .then(res => {
-                //         const data : FindCoincindeceRequestType[] = res;
+                await findCoincidence(request)
+                    .then(res => {
+                        const data : FindCoincindeceRequestType[] = res;
                         
-                //         const convertedData = data
-                //             .map((el) => {
-                //                 return {value: el.text, label: el.text};
-                //             })
+                        const convertedData = data
+                            .map((el) => {
+                                return {value: el.text, label: el.text};
+                            })
                         
-                //             setFirstCoincidenceList(responseList)
-                //             if(convertedData.length > 0){
-                //                 setIsFirstSelectOpen(true)
-                //             }
-                //         })
-                const list = ['list','list','list']
-                const responseList = findUniq(list)
+                            setFirstCoincidenceList(convertedData)
+                            if(convertedData.length > 0){
+                                setIsFirstSelectOpen(true)
+                            }
+                        })
+                // const list = ['list','list','list']
+                // const responseList = findUniq(list)
                 setIsFirstSelectOpen(true)
                 // setFirstCoincidenceList(responseList)
-                console.log('responseList', responseList);
+                // console.log('responseList', responseList);
             }
             else{
                 setFirstCoincidenceList([]);
@@ -96,7 +101,9 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
                 const request : FindCoincidenceType = {
                     text: value,
                     okved: [],
-                    regions: []
+                    regions: [],
+                    is_person: secondFilters.includes('People'), 
+                    is_company: secondFilters.includes('Company'), 
                 } 
                 await findCoincidence(request)
                     .then(res => {
@@ -225,7 +232,7 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
                                                 {opt.label}
                                             </Select.Option>))}
                                     </Select>
-                                    {/* <InputFirstFilters /> */}
+                                    <InputFirstFilters />
                                     <div>Искать по: <Checkbox.Group options={flagsOptions} defaultValue={firstFilters} onChange={onChangeFirstCheckboxes}/></div>
                                 </MyFormItem>
                                 <MyFormItem
@@ -248,7 +255,7 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
                                                 {opt.label}
                                             </Select.Option>))}
                                     </Select>
-                                    {/* <InputSecondFilters /> */}
+                                    <InputSecondFilters />
                                     <div>Искать по: <Checkbox.Group options={flagsOptions} defaultValue={secondFilters} onChange={onChangeSecondCheckboxes}/></div>
                                 </MyFormItem>
                             </MyFormItemGroup>

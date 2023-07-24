@@ -21,7 +21,6 @@ import { convertData } from '../../calculate';
     if (isLoading) {
         getContragentsData()
             .then((res) => {
-              console.log('res', res)
                 const convertedData = convertData(res.data);
                 setNodes(convertedData.nodes)
                 setEdges(convertedData.edges)
@@ -40,7 +39,7 @@ useEffect(() => {
 
   return (
     <> 
-    <p style={{fontSize: '32px', textAlign: 'center'}}>Визуализация связей</p>   
+    <div style={{fontSize: '32px', textAlign: 'center'}}>Визуализация связей</div>   
       {!isLoading && 
         <ReactFlow
           nodes={nodes}
@@ -51,7 +50,8 @@ useEffect(() => {
           maxZoom={1.5}
           minZoom={0.55}
           edgeTypes={edgeTypes}  
-          nodeTypes={nodeTypes}   
+          nodeTypes={nodeTypes}  
+           
         >
           <Background 
             color='#ccc' 
