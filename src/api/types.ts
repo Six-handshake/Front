@@ -56,7 +56,9 @@ type FindRelationshipType = {
 type FindCoincidenceType = {
     text: string,
     okved?: string[],
-    regions?: string[]
+    regions?: string[],
+    is_person: boolean,
+    is_company: boolean
 }
 
 type FindCoincindeceRequestType = {
