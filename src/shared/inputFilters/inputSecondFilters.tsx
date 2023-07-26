@@ -2,6 +2,7 @@ import { Select } from "antd";
 import { regions, okved } from ".";
 import { RegionType, ConvertedRegionType, OkvedType, ConvertedOkved, ConvertedOkvedType } from ".";
 import useStore from "../../store/useStore";
+import {Form} from "antd";
 // import { useInput } from "../../store";
 
 
@@ -34,8 +35,7 @@ const InputSecondFilters = () => {
 
     const secondFilters = useStore((state) => state.secondFilters)
     const isPerson = secondFilters.includes('People');
-
-    
+    const isCompany = secondFilters.includes('Company');    
 
     const regionsOption = convertRegion(regions)
     const okvedOptions = convertOkved(okved)
@@ -72,26 +72,35 @@ const InputSecondFilters = () => {
 
    return (
     <>
-        {!isPerson && <Select
-        mode="multiple"
-        allowClear
-        style={{ width: '100%' }}
-        placeholder="Выберите регион"
-        onChange={handleChangeRegions}
+        <div style={{minHeight: '115px'}}>
+            { 
+            <Form.Item>
+                <Select
+                mode="multiple"
+                allowClear
+                style={{ width: '100%' }}
+                placeholder="Выберите регион"
+                onChange={handleChangeRegions}
+                
+                options={regionsOption}
+                >
+
+                </Select>
+            </Form.Item>
+            }
+            {isCompany && <Form.Item>
+                <Select
+                mode="multiple"
+                allowClear
+                style={{ width: '100%' }}
+                placeholder="Выберите вид деятельности"
+                onChange={handleChangeActivity}        
+                options={okvedOptions}>
+
+                </Select>
+            </Form.Item>}
+        </div>
         
-        options={regionsOption}
-        >
-
-        </Select>}
-        <Select
-        mode="multiple"
-        allowClear
-        style={{ width: '100%' }}
-        placeholder="Выберите вид деятельности"
-        onChange={handleChangeActivity}        
-        options={okvedOptions}>
-
-        </Select>
     
     </>
    );

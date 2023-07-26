@@ -9,7 +9,6 @@ import { ContragentsDataType, getContragentsData } from '../../api';
 import useData from '../../store/useStore';
 import { convertData } from '../../calculate';
 
-
   const CardsBoard = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
@@ -39,7 +38,7 @@ useEffect(() => {
 
   return (
     <> 
-    <div style={{fontSize: '32px', textAlign: 'center'}}>Визуализация связей</div>   
+    <div style={{fontSize: '32px', textAlign: 'center'}}>Визуализация связей контрагентов</div>  
       {!isLoading && 
         <ReactFlow
           nodes={nodes}
@@ -50,11 +49,11 @@ useEffect(() => {
           maxZoom={1.5}
           minZoom={0.55}
           edgeTypes={edgeTypes}  
-          nodeTypes={nodeTypes}  
-           
+          nodeTypes={nodeTypes}             
         >
           <Background 
             color='#ccc' 
+            // gap={16}
             style={{borderTop: '1px solid black'}}
             />
         </ReactFlow>}

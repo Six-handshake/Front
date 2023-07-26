@@ -41,7 +41,7 @@ const PercentContainer: FC<EdgeProps> = ({
           }}
           className="nodrag nopan"
         >
-          {data.label}
+          {(Number(data.label)).toFixed(1)}
         </div>
       </EdgeLabelRenderer>
     </>

@@ -55,7 +55,7 @@ return convertedData;
 
 
 const getNodePosition = (cordinateX : number, cordinateY: number, isChild: boolean) => {
-    const factorY = isChild ? 0 : 0;
+    const factorY = isChild ? -50 : 0;
     const factorX = isChild ? 0 : 250;
   
     return {x: cordinateX * 600 + factorX, y: cordinateY * 150 + factorY}

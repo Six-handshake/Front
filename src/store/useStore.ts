@@ -8,10 +8,10 @@ interface storeStateProps {
     edges: Edge[],
     firstFilters: CheckboxValueType[],
     secondFilters: CheckboxValueType[],
-    firstActivities: ConvertedOkvedType[],
-    secondActivities: ConvertedOkvedType[],
-    firstRegions: ConvertedRegionType[],
-    secondRegions: ConvertedRegionType[],
+    firstActivities: string[],
+    secondActivities: string[],
+    firstRegions: string[],
+    secondRegions: string[],
     setFirstFilters: (filters: CheckboxValueType[]) => void,
     setSecondFilters: (filters: CheckboxValueType[]) => void,
     setFirstActivities: (activities: ConvertedOkvedType[]) => void,
@@ -25,8 +25,8 @@ interface storeStateProps {
 const useStore = create<storeStateProps>((set) => ({
     nodes: [],
     edges: [],
-    firstFilters: [],
-    secondFilters: [],
+    firstFilters: ['Company', 'People'],
+    secondFilters: ['Company', 'People'],
     firstActivities: [],
     secondActivities: [],
     firstRegions: [],
@@ -54,25 +54,29 @@ const useStore = create<storeStateProps>((set) => ({
         }))
     },
     setFirstActivities: (activities: ConvertedOkvedType[]) => {
+        const convertedActivities = activities.map((activity) => String(activity.id))
         set(() => ({
-            firstActivities: activities
+            firstActivities: convertedActivities
         }))
     },
     setSecondActivities: (activities: ConvertedOkvedType[]) => {
+        const convertedActivities = activities.map((activity) => String(activity.id))
         set(() => ({
-            secondActivities: activities
+            secondActivities: convertedActivities
         }))
     },
     setFirstRegions: (regions: ConvertedRegionType[]) => 
     {
-            set(() => ({
-            firstRegions: regions
+        const convertedRegions = regions.map((region) => String(region.id))
+        set(() => ({
+            firstRegions: convertedRegions
         }))
     },
     setSecondRegions: (regions: ConvertedRegionType[]) => 
     {
+        const convertedRegions = regions.map((region) => String(region.id))
             set(() => ({
-            secondRegions: regions
+            secondRegions: convertedRegions
         }))
     }
 }));

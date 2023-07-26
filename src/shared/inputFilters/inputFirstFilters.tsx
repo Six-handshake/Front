@@ -1,6 +1,7 @@
 import { Select } from "antd";
 import { regions, RegionType, ConvertedRegionType, okved, OkvedType, ConvertedOkvedType } from ".";
 import useStore from "../../store/useStore";
+import {Form} from "antd";
 
 function convertRegion(regions: RegionType[]) : ConvertedRegionType[] {
     
@@ -30,6 +31,7 @@ const InputFirstFilters = () => {
 
     const firstFilters = useStore((state) => state.firstFilters);
     const isPerson = firstFilters.includes('People');
+    const isCompany = firstFilters.includes('Company');
 
     const options = convertRegion(regions)
     const okvedOptions = convertOkved(okved)
@@ -68,25 +70,32 @@ const InputFirstFilters = () => {
 
    return (
     <>
-        {!isPerson && <Select
-        mode="multiple"
-        allowClear
-        style={{ width: '100%' }}
-        placeholder="Выберите регион"
-        onChange={handleChange}
-        options={options}
-        >
+        <div style={{minHeight: '115px'}}>
+            {<Form.Item>
+                <Select
+                mode="multiple"
+                allowClear
+                style={{ width: '100%' }}
+                placeholder="Выберите регион"
+                onChange={handleChange}
+                options={options}
+                >
 
-        </Select>}
-        <Select
-        mode="multiple"
-        allowClear
-        style={{ width: '100%' }}
-        placeholder="Выберите вид деятельности"
-        onChange={handleChangeActivity}        
-        options={okvedOptions}>
+                </Select>
+            </Form.Item>}
+            {isCompany && <Form.Item>
+                <Select
+                mode="multiple"
+                allowClear
+                style={{ width: '100%' }}
+                placeholder="Выберите вид деятельности"
+                onChange={handleChangeActivity}        
+                options={okvedOptions}>
+                </Select>
+            </Form.Item>}
 
-        </Select>
+        </div>
+        
     </>
     
    );

@@ -44,12 +44,16 @@ type FindRelationshipType = {
     firstContragent: {
         data: string,
         isPerson: boolean,
-        isCompany: boolean
+        isCompany: boolean,
+        okved: string[],
+        regions: string[]
     }
     secondContragent:{
         data: string,
         isPerson: boolean,
-        isCompany: boolean
+        isCompany: boolean,
+        okved: string[],
+        regions: string[]
     }
 }
 

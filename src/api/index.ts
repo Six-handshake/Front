@@ -4,4 +4,4 @@ export { findCoincidence } from "./postFindCoincidence";
 
 export type { ContragentsDataType, Node, 
     Edge, FindRelationshipType, 
-    FindCoincidenceType } from "./types";
+    FindCoincidenceType, FindCoincindeceRequestType } from "./types";

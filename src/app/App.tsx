@@ -11,8 +11,6 @@ function App() {
                     <CardsBoard />
                 </div>
             </div>
-            <div>
-            </div>
         </Container>
     );
 }
