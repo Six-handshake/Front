@@ -66,6 +66,11 @@ const InputFirstFilters = () => {
         setActivities(updatedActivities);
     };
 
+    const handleDeselect = () => {
+        setActivities([])
+        setRegions([])
+    }
+
     
 
    return (
@@ -73,24 +78,26 @@ const InputFirstFilters = () => {
         <div style={{minHeight: '115px'}}>
             {<Form.Item>
                 <Select
-                mode="multiple"
-                allowClear
-                style={{ width: '100%' }}
-                placeholder="Выберите регион"
-                onChange={handleChange}
-                options={options}
+                    mode="multiple"
+                    allowClear
+                    style={{ width: '100%' }}
+                    placeholder="Выберите регион"
+                    onChange={handleChange}
+                    options={options}
+                    onDeselect={handleDeselect}
                 >
-
                 </Select>
             </Form.Item>}
             {isCompany && <Form.Item>
                 <Select
-                mode="multiple"
-                allowClear
-                style={{ width: '100%' }}
-                placeholder="Выберите вид деятельности"
-                onChange={handleChangeActivity}        
-                options={okvedOptions}>
+                    style={{width: '100%'}}
+                    mode="multiple"
+                    allowClear
+                    placeholder="Выберите вид деятельности"
+                    onChange={handleChangeActivity}        
+                    options={okvedOptions}
+                    onDeselect={handleDeselect}
+                    >
                 </Select>
             </Form.Item>}
 

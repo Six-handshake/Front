@@ -7,7 +7,7 @@ function App() {
         <Container>
             <div className="w-full h-screen flex flex-col justify-left gap-7">
                 <InputKonterAgent />    
-                <div style={{height: '70%'}}>
+                <div style={{height: '150vh'}}>
                     <CardsBoard />
                 </div>
             </div>

@@ -32,7 +32,8 @@ type Edge = {
     kind: string,
     share: string,
     date_begin: string,
-    date_end: string
+    date_end: string,
+    between_depth: boolean
 }
 
 type ContragentsDataType = {

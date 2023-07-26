@@ -2,16 +2,17 @@ import React, { memo, useState } from "react";
 import { Form, Button, Checkbox, FormItemProps, Select, SelectProps, notification } from "antd";
 import { InputKonterAgentPropsType, MyFormItemGroupPropsType, ConvertedCoincidencesType } from "./types";
 import { findRelationship, findCoincidence, FindRelationshipType, FindCoincidenceType, FindCoincindeceRequestType } from "../../api";
-// import { FindRelationshipType, FindCoincidenceType, FindCoincindeceRequestType } from "../../api/types";
 import { CheckboxValueType } from "antd/es/checkbox/Group";
 import { InputFirstFilters, InputSecondFilters } from "../inputFilters";
-import { SearchOutlined } from "@ant-design/icons";
+import { SearchOutlined, ShopOutlined, UserOutlined } from "@ant-design/icons";
 import useStore from "../../store/useStore";
 
 const MyFormItemContext = React.createContext<(string | number)[]>([]);
 const flagsOptions = [
-    { label: 'компании', value: 'Company' },
-    { label: 'люди', value: 'People' },
+    { label: ``, value: 'Company' },
+    { label: '', value: 'People' },
+    // { label: 'компании', value: 'Company' },
+    // { label: 'люди', value: 'People' },
 ];
 
 function toArr(
@@ -39,7 +40,7 @@ const MyFormItem = ({ name, ...props }: FormItemProps) => {
     const concatName =
         name !== undefined ? [...prefixPath, ...toArr(name)] : undefined;
 
-    return <Form.Item className="w-1/3" name={concatName} {...props} />;
+    return <Form.Item className="w-1/3" style={{textAlign: 'center'}} name={concatName} {...props} />;
 };
 
 const InputKonterAgent = memo<InputKonterAgentPropsType>(
@@ -208,85 +209,109 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
                 layout="vertical"
                 onFinish={handleSubmit}              
             >
-                    <div className='flex justify-between'>
+                    <div className='flex justify-betweeen' style={{alignItems: 'middle'}}>
                         <MyFormItemGroup prefix={["user"]}> 
-                            <MyFormItemGroup prefix={["name"]}
-                            
+                            <MyFormItemGroup prefix={["name"]}                            
                             >
                                 <MyFormItem                                    
-                                    name="firstAgent"
-                                    label="Введите первого контрагента"                                    
+                                    name="firstAgent"                                    
                                 >
-                                    <Form.Item name={['firstContragent']} rules={[{ required: true, message: 'Введите имя контрагента' }]}>
-                                        <Select
-                                            onKeyDown={onEnterKeyDownHandler}
-                                            open={isFirstSelectOpen}
-                                            showSearch
-                                            placeholder="Введите контрагента"
-                                            optionFilterProp="children"
-                                            onChange={onFirstFieldChange}
-                                            onSearch={handleOnSearchFirstAgent}
-                                            onFocus={onFirstFieldFocus}
-                                            onBlur={onFirstFieldBlur}
-                                        >
-                                            {firstCoincidenceList && firstCoincidenceList.map((opt) => (
-                                                <Select.Option key={opt.value} value={opt.value}>
-                                                    {opt.label}
-                                                </Select.Option>))}
-                                        </Select>
-                                    </Form.Item>
-                                    
-                                    <InputFirstFilters />
-                                        <Checkbox.Group 
-                                            options={flagsOptions} 
-                                            defaultValue={firstFilters} 
-                                            style={{userSelect: 'none'}} 
-                                            onChange={onChangeFirstCheckboxes}/>
+
+                                    <div style={{marginBottom: '15px'}}>Введите первого контрагента</div>
+                                    <div style={{display: 'flex'}}>
+                                        <div style={{display: 'flex', flexDirection: 'column', width: '700px'}}>
+                                            <Form.Item name={['firstContragent']} rules={[{ required: true, message: 'Введите имя контрагента' }]}>
+                                                <Select
+                                                    onKeyDown={onEnterKeyDownHandler}
+                                                    open={isFirstSelectOpen}
+                                                    showSearch
+                                                    placeholder="Введите контрагента"
+                                                    optionFilterProp="children"
+                                                    onChange={onFirstFieldChange}
+                                                    onSearch={handleOnSearchFirstAgent}
+                                                    onFocus={onFirstFieldFocus}
+                                                    onBlur={onFirstFieldBlur}
+                                                >
+                                                    {firstCoincidenceList && firstCoincidenceList.map((opt) => (
+                                                        <Select.Option key={opt.value} value={opt.value}>
+                                                            {opt.label}
+                                                        </Select.Option>))}
+                                                </Select>
+                                            </Form.Item>
+                                                <InputFirstFilters />
+
+                                        </div>
+                                        <div style={{display: 'flex', flexDirection: 'column', margin: 'auto 15px'}} >
+                                            <Checkbox.Group                
+                                                defaultValue={firstFilters} 
+                                                style={{userSelect: 'none', height: '150px'}} 
+                                                onChange={onChangeFirstCheckboxes}                                                
+                                                >
+                                                    <div style={{margin: 'auto', display: 'flex', gap: '10px'}}>
+                                                        <Checkbox value={'Company'}></Checkbox><ShopOutlined style={{fontSize: '40px'}}/>
+                                                    </div>
+                                                    <div style={{margin: 'auto', display: 'flex', gap: '10px'}}>
+                                                        <Checkbox value={'People'} style={{margin: 'auto'}}></Checkbox><UserOutlined style={{fontSize: '40px'}}/>
+                                                    </div>
+                                            </Checkbox.Group>
+
+                                        </div>
+                                    </div>
                                 </MyFormItem>
-                                <MyFormItem
-                                    name="secondAgent"
-                                    label="Введите второго контрагента"
+                                <Button
+                                    type="primary"
+                                    htmlType="submit"
+                                    className=" bg-blue-600 ml-auto"
+                                    style={{width: '140px', display: 'block', margin: 'auto', height: '140px', borderRadius: '50%'}}
                                 >
-                                    <Form.Item name={['secondContragent']}>
-                                        <Select
-                                        onKeyDown={onEnterKeyDownHandler}
-                                            open={isSecondSelectOpen}
-                                            showSearch
-                                            placeholder="Введите второго контрагента"
-                                            optionFilterProp="children"
-                                            onSearch={handleOnSearchSecondAgent}
-                                            onFocus={onSecondFieldFocus}
-                                            onBlur={onSecondFieldBlur}
-                                            onChange={onSecondFieldChange}
-                                        >
-                                            {secondCoincidenceList && secondCoincidenceList.map((opt) => (
-                                                <Select.Option key={opt.value} value={opt.value}>
-                                                    {opt.label}
-                                                </Select.Option>))}
-                                        </Select>
-                                    </Form.Item>
-                                    
-                                    <InputSecondFilters />
-                                        <Checkbox.Group 
-                                            style={{userSelect: 'none'}}
-                                            options={flagsOptions}
-                                            defaultValue={secondFilters} 
-                                            onChange={onChangeSecondCheckboxes} />
+                                    <div style={{display: 'flex', justifyContent: 'center', gap: '10px', flexDirection: 'column'}}>
+                                        <div style={{fontSize: '20px'}}>Поиск</div> <SearchOutlined style={{margin: 'auto 0', fontSize: '25px'}}/>
+                                    </div>
+                                </Button>
+                                <MyFormItem                                    
+                                    name="secondAgent"
+                                >
+                                    <div style={{marginBottom: '15px'}}>Введите второго контрагента</div>
+                                    <div style={{display: 'flex'}}>
+                                                <Checkbox.Group 
+                                                    style={{userSelect: 'none'}}
+                                                    defaultValue={secondFilters} 
+                                                    onChange={onChangeSecondCheckboxes}>
+                                                        <div style={{margin: 'auto 0', display: 'flex', gap: '10px'}}>
+                                                            <ShopOutlined style={{fontSize: '40px'}}/><Checkbox value={'Company'} ></Checkbox>
+                                                        </div>
+                                                        <div style={{margin: 'auto 0', display: 'flex', gap: '10px'}}>
+                                                            <UserOutlined style={{fontSize: '40px'}}/><Checkbox value={'People'}></Checkbox>
+                                                        </div>
+                                                    
+                                                </Checkbox.Group>
+                                        <div style={{display: 'flex', flexDirection: 'column', width: '700px'}}>
+                                            <Form.Item name={['secondContragent']}>
+                                                <Select
+                                                onKeyDown={onEnterKeyDownHandler}
+                                                    open={isSecondSelectOpen}
+                                                    showSearch
+                                                    placeholder="Введите второго контрагента"
+                                                    optionFilterProp="children"
+                                                    onSearch={handleOnSearchSecondAgent}
+                                                    onFocus={onSecondFieldFocus}
+                                                    onBlur={onSecondFieldBlur}
+                                                    onChange={onSecondFieldChange}
+                                                >
+                                                    {secondCoincidenceList && secondCoincidenceList.map((opt) => (
+                                                        <Select.Option key={opt.value} value={opt.value}>
+                                                            {opt.label}
+                                                        </Select.Option>))}
+                                                </Select>
+                                            </Form.Item>                                            
+                                            <InputSecondFilters />
+                                        </div>
+
+                                    </div>
                                 </MyFormItem>
                             </MyFormItemGroup>
                         </MyFormItemGroup>
-                    </div>
-                <Button
-                    type="primary"
-                    htmlType="submit"
-                    className=" bg-blue-600 ml-auto"
-                    style={{width: '140px', display: 'block'}}
-                >
-                    <div style={{display: 'flex', justifyContent: 'center', gap: '10px'}}>
-                        <div >Найти</div> <SearchOutlined style={{margin: 'auto 0'}}/>
-
-                    </div>
-                </Button>
+                    </div>                
             </Form>
         );
     }

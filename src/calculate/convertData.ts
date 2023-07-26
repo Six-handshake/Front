@@ -10,9 +10,16 @@ const convertData = (responseContragents: ContragentsDataType) => {
         const title = node.info.name === undefined ? node.info.firstname : node.info.name;
         const position = getNodePosition(node.depth_x, node.depth_y, node.is_child)
         const nodeType = node.is_child ? 'childNode' : 'parentNode';
-        const data = node.is_child 
-          ? { companyName: title, id: node.id, x: position.x, y: position.y, px:  node.depth_x, py: node.depth_y} 
-          : { title: title, id: node.id, x: position.x, y: position.y, px: node.depth_x, py: node.depth_y }
+        const info = node.is_child 
+            ? {lastName: node.info.lastname, firstName: node.info.firstname, inn: node.info.inn}
+            : {inn: node.info.inn, dataReg: node.info.reg_date, 
+                okved: node.info.okved, profit: node.info.profit,
+                 revenue: node.info.revenue, region: node.info.region}
+
+        const data = { title: title, id: node.id, info: info }
+        // const data = node.is_child 
+        //   ? { title: title, id: node.id, info: info } 
+        //   : { title: title, id: node.id, info: info }
   
     const convertedNode : Node = {
         id: node.id,
@@ -32,14 +39,14 @@ const convertData = (responseContragents: ContragentsDataType) => {
     
     
 const convertedEdges : Edge[] = responseEdges.map((edge) => {
-    const percent = edge.share !== 'None' ? `${edge.share}%` : '';
+    const percent = edge.share !== 'None' ? `${Number(edge.share).toFixed(1)}%` : '';
     const type = edge.share !== 'None' ? 'custom' : 'step';
     const convertedEdge: Edge = {
         id: `${edge.child_id}-${edge.parent_id}`,
         source: edge.parent_id,
         target: edge.child_id,
         type: type,
-        data: {label: percent}
+        data: {label: percent, betweenDeep: edge.between_depth}
     }
 
     return convertedEdge;
@@ -58,7 +65,7 @@ const getNodePosition = (cordinateX : number, cordinateY: number, isChild: boole
     const factorY = isChild ? -50 : 0;
     const factorX = isChild ? 0 : 250;
   
-    return {x: cordinateX * 600 + factorX, y: cordinateY * 150 + factorY}
+    return {x: cordinateX * 700 + factorX, y: cordinateY * 150 + factorY}
 }
 
 export {convertData};
