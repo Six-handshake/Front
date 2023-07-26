@@ -1,6 +1,7 @@
 import ReactFlow, {
   useNodesState,
-  useEdgesState} from 'reactflow';
+  useEdgesState,
+  Background} from 'reactflow';
 import 'reactflow/dist/style.css';
 import { edgeTypes, nodeTypes } from './const';
 import { useEffect, useState } from 'react';
@@ -38,7 +39,8 @@ useEffect(() => {
         maxZoom={2.5}
         minZoom={0.45}
         edgeTypes={edgeTypes}
-        nodeTypes={nodeTypes} />
+        nodeTypes={nodeTypes} >
+        </ReactFlow>
       }        
     </>
   );

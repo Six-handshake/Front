@@ -10,16 +10,13 @@ const convertData = (responseContragents: ContragentsDataType) => {
         const title = node.info.name === undefined ? node.info.firstname : node.info.name;
         const position = getNodePosition(node.depth_x, node.depth_y, node.is_child)
         const nodeType = node.is_child ? 'childNode' : 'parentNode';
-        const info = node.is_child 
-            ? {lastName: node.info.lastname, firstName: node.info.firstname, inn: node.info.inn}
+        const info = node.info.firstname !== undefined 
+            ? {lastName: node.info.lastname, firstName: node.info.firstname, inn: node.info.inn, }
             : {inn: node.info.inn, dataReg: node.info.reg_date, 
                 okved: node.info.okved, profit: node.info.profit,
                  revenue: node.info.revenue, region: node.info.region}
 
         const data = { title: title, id: node.id, info: info }
-        // const data = node.is_child 
-        //   ? { title: title, id: node.id, info: info } 
-        //   : { title: title, id: node.id, info: info }
   
     const convertedNode : Node = {
         id: node.id,

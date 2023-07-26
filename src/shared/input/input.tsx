@@ -2,17 +2,11 @@ import React, { memo, useState } from "react";
 import { Form, Button, Checkbox, FormItemProps, Select, SelectProps, notification } from "antd";
 import { InputKonterAgentPropsType, MyFormItemGroupPropsType, ConvertedCoincidencesType } from "./types";
 import { findRelationship, findCoincidence, FindRelationshipType, FindCoincidenceType, FindCoincindeceRequestType } from "../../api";
-import {
-    FindRelationshipType,
-    FindCoincidenceType,
-    FindCoincindeceRequestType,
-} from "../../api/types";
 
 import { CheckboxValueType } from "antd/es/checkbox/Group";
 import { InputFirstFilters, InputSecondFilters } from "../inputFilters";
 import { SearchOutlined, ShopOutlined, UserOutlined } from "@ant-design/icons";
 import useStore from "../../store/useStore";
-import FormItem from "antd/es/form/FormItem";
 
 const MyFormItemContext = React.createContext<(string | number)[]>([]);
 const flagsOptions = [
@@ -48,7 +42,7 @@ const MyFormItem = ({ name, ...props }: FormItemProps) => {
     const concatName =
         name !== undefined ? [...prefixPath, ...toArr(name)] : undefined;
 
-    return <Form.Item className="w-1/3" style={{textAlign: 'center'}} name={concatName} {...props} />;
+    return <Form.Item className="w-1/3"  name={concatName} {...props} />;
 };
 
 const InputKonterAgent = memo<InputKonterAgentPropsType>(
