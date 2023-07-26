@@ -32,7 +32,8 @@ type Edge = {
     kind: string,
     share: string,
     date_begin: string,
-    date_end: string
+    date_end: string,
+    between_depth: boolean
 }
 
 type ContragentsDataType = {
@@ -44,12 +45,16 @@ type FindRelationshipType = {
     firstContragent: {
         data: string,
         isPerson: boolean,
-        isCompany: boolean
+        isCompany: boolean,
+        okved: string[],
+        regions: string[]
     }
     secondContragent:{
         data: string,
         isPerson: boolean,
-        isCompany: boolean
+        isCompany: boolean,
+        okved: string[],
+        regions: string[]
     }
 }
 

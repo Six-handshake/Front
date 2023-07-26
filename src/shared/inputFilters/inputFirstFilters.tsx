@@ -8,6 +8,7 @@ import {
     ConvertedOkvedType,
 } from ".";
 import useStore from "../../store/useStore";
+import {Form} from "antd";
 
 function convertRegion(regions: RegionType[]): ConvertedRegionType[] {
     const convertedRegions = regions.map((region) => {
@@ -39,7 +40,9 @@ const InputFirstFilters = () => {
     const setActivities = useStore((state) => state.setFirstActivities);
 
     const firstFilters = useStore((state) => state.firstFilters);
-    const isPerson = firstFilters.includes("People");
+    const isPerson = firstFilters.includes('People');
+    const isCompany = firstFilters.includes('Company');
+
 
     const options = convertRegion(regions);
     const okvedOptions = convertOkved(okved);
@@ -74,27 +77,46 @@ const InputFirstFilters = () => {
         setActivities(updatedActivities);
     };
 
-    return (
-        <div className="flex flex-col gap-2">
-            {!isPerson && (
+    const handleDeselect = () => {
+        setActivities([])
+        setRegions([])
+    }
+
+    
+
+   return (
+    <>
+        <div style={{minHeight: '115px'}}>
+            {<Form.Item>
                 <Select
                     mode="multiple"
                     allowClear
-                    style={{ width: "100%" }}
+                    style={{ width: '100%' }}
                     placeholder="Выберите регион"
                     onChange={handleChange}
                     options={options}
-                ></Select>
-            )}
-            <Select
-                mode="multiple"
-                allowClear
-                style={{ width: "100%" }}
-                placeholder="Выберите вид деятельности"
-                onChange={handleChangeActivity}
-                options={okvedOptions}
-            ></Select>
+                    onDeselect={handleDeselect}
+                >
+                </Select>
+            </Form.Item>}
+            {isCompany && <Form.Item>
+                <Select
+                    style={{width: '100%'}}
+                    mode="multiple"
+                    allowClear
+                    placeholder="Выберите вид деятельности"
+                    onChange={handleChangeActivity}        
+                    options={okvedOptions}
+                    onDeselect={handleDeselect}
+                    >
+                </Select>
+            </Form.Item>}
+
         </div>
-    );
+        
+    </>
+    
+   );
+
 };
 export { InputFirstFilters };

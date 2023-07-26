@@ -1,20 +1,24 @@
 import { URL_FIND_DATA } from "./urls";
 import axios from "axios";
 import { FindRelationshipType } from "./types";
-import { notification } from "antd";
 
 const findRelationship = async (response : FindRelationshipType)  => {
+    const {firstContragent, secondContragent} = response;
     const findRelationshipServerType = {
         index1 : 
         {
-            data: response.firstContragent.data,
-            is_person: response.firstContragent.isPerson,
-            is_company: response.firstContragent.isCompany,
+            data: firstContragent.data,
+            is_person: firstContragent.isPerson,
+            is_company: firstContragent.isCompany,
+            okved: firstContragent.okved,
+            regions: firstContragent.regions
         },
         index2: {
-            data: response.secondContragent.data,
-            is_person: response.secondContragent.isPerson,
-            is_company: response.secondContragent.isCompany,
+            data: secondContragent.data,
+            is_person: secondContragent.isPerson,
+            is_company: secondContragent.isCompany,
+            okved: secondContragent.okved,
+            regions: secondContragent.regions
         }
     }
     
