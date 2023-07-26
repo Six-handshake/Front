@@ -2,10 +2,17 @@ import React, { memo, useState } from "react";
 import { Form, Button, Checkbox, FormItemProps, Select, SelectProps, notification } from "antd";
 import { InputKonterAgentPropsType, MyFormItemGroupPropsType, ConvertedCoincidencesType } from "./types";
 import { findRelationship, findCoincidence, FindRelationshipType, FindCoincidenceType, FindCoincindeceRequestType } from "../../api";
+import {
+    FindRelationshipType,
+    FindCoincidenceType,
+    FindCoincindeceRequestType,
+} from "../../api/types";
+
 import { CheckboxValueType } from "antd/es/checkbox/Group";
 import { InputFirstFilters, InputSecondFilters } from "../inputFilters";
 import { SearchOutlined, ShopOutlined, UserOutlined } from "@ant-design/icons";
 import useStore from "../../store/useStore";
+import FormItem from "antd/es/form/FormItem";
 
 const MyFormItemContext = React.createContext<(string | number)[]>([]);
 const flagsOptions = [
@@ -13,11 +20,12 @@ const flagsOptions = [
     { label: '', value: 'People' },
     // { label: 'компании', value: 'Company' },
     // { label: 'люди', value: 'People' },
+
 ];
 
 function toArr(
     str: string | number | (string | number)[]
-) : (string | number)[] {
+): (string | number)[] {
     return Array.isArray(str) ? str : [str];
 }
 
@@ -44,9 +52,9 @@ const MyFormItem = ({ name, ...props }: FormItemProps) => {
 };
 
 const InputKonterAgent = memo<InputKonterAgentPropsType>(
-    function InputKonterAgent({...props}) {
-        const setNodes = useStore((state) => state.setNodes)
-        const setEdges = useStore((state) => state.setEdges)
+    function InputKonterAgent({ ...props }) {
+        const setNodes = useStore((state) => state.setNodes);
+        const setEdges = useStore((state) => state.setEdges);
 
         const firstOkved = useStore((state) => state.firstActivities);
         const secondOkved = useStore((state) => state.secondActivities);
@@ -62,15 +70,19 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
         const secondFilters = useStore(state => state.secondFilters);
         const setSecondFilters = useStore(state => state.setSecondFilters);
 
-        const [firstCoincidenceList, setFirstCoincidenceList] = useState<SelectProps['options']>([]);
+        const [firstCoincidenceList, setFirstCoincidenceList] = useState<
+            SelectProps["options"]
+        >([]);
         const [isFirstSelectOpen, setIsFirstSelectOpen] = useState(false);
 
-        const [secondCoincidenceList, setSecondCoincidenceList] = useState<SelectProps['options']>([]);        
+        const [secondCoincidenceList, setSecondCoincidenceList] = useState<
+            SelectProps["options"]
+        >([]);
         const [isSecondSelectOpen, setIsSecondSelectOpen] = useState(false);
 
         const handleOnSearchFirstAgent = async (value: string) => {
-            if(value.length > 2){
-                const request : FindCoincidenceType = {
+            if (value.length > 2) {
+                const request: FindCoincidenceType = {
                     text: value,
                     is_person: firstFilters.includes('People'), 
                     is_company: firstFilters.includes('Company'), 
@@ -96,6 +108,7 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
                 setIsFirstSelectOpen(true)
             }
             else{
+
                 setFirstCoincidenceList([]);
             }
         };
@@ -128,7 +141,7 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
             }
         };
 
-        const handleSubmit = async() => {
+        const handleSubmit = async () => {
             const firstContragent = {
                 data: firstAgent, 
                 isPerson: firstFilters.includes('People'), 
@@ -144,70 +157,77 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
                 regions: secondRegions
             }
 
-            const header : FindRelationshipType = {
-                firstContragent: firstContragent, 
-                secondContragent: secondContragent
+            const header: FindRelationshipType = {
+                firstContragent: firstContragent,
+                secondContragent: secondContragent,
             };
 
-            const response = findRelationship(header); 
-            response.then(response => {
-                    setNodes(response.data.nodes)
-                    setEdges(response.data.edges)
+            const response = findRelationship(header);
+            response
+                .then((response) => {
+                    setNodes(response.data.nodes);
+                    setEdges(response.data.edges);
                 })
-                .catch(err => {
-                    notification.error({message: 'Связи не найдены'})
+                .catch((err) => {
+                    notification.error({ message: "Связи не найдены" });
                 });
+
         };
 
-        const onChangeFirstCheckboxes = (checkedValues: CheckboxValueType[]) => {
+        const onChangeFirstCheckboxes = (
+            checkedValues: CheckboxValueType[]
+        ) => {
             setFirstFilters(checkedValues);
         };
-        
-        const onChangeSecondCheckboxes = (checkedValues: CheckboxValueType[]) => {
+
+        const onChangeSecondCheckboxes = (
+            checkedValues: CheckboxValueType[]
+        ) => {
             setSecondFilters(checkedValues);
         };
 
-        const onEnterKeyDownHandler = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        const onEnterKeyDownHandler = (
+            e: React.KeyboardEvent<HTMLDivElement>
+        ) => {
             if (e.key === "Enter") {
                 setIsFirstSelectOpen(false);
                 setIsSecondSelectOpen(false);
             }
-        }        
+        };
 
         const onFirstFieldFocus = () => {
             const isOpen = secondAgent.length > 2;
-            setIsFirstSelectOpen(isOpen)                    
+            setIsFirstSelectOpen(isOpen);
             // if(firstAgent.length > 2){
             // }
-        }
+        };
 
         const onFirstFieldBlur = () => {
-            setIsFirstSelectOpen(false)
-        }
+            setIsFirstSelectOpen(false);
+        };
 
         const onSecondFieldFocus = () => {
             const isOpen = secondAgent.length > 2;
             setIsSecondSelectOpen(isOpen);
-            
-        }
+        };
 
         const onSecondFieldBlur = () => {
-            setIsSecondSelectOpen(false)
-        }
+            setIsSecondSelectOpen(false);
+        };
 
         const onFirstFieldChange = (value: string) => {
             setFirstAgent(value);
-        }
+        };
 
         const onSecondFieldChange = (value: string) => {
             setSecondAgent(value);
-        }
+        };
 
         return (
             <Form
                 name="form_item_path"
                 layout="vertical"
-                onFinish={handleSubmit}              
+                onFinish={handleSubmit}
             >
                     <div className='flex justify-betweeen' style={{alignItems: 'middle'}}>
                         <MyFormItemGroup prefix={["user"]}> 
