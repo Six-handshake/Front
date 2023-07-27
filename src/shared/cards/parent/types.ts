@@ -17,6 +17,7 @@ interface CardParentPropsType{
     data: {
         role?: string,
         title?: string,
+        firstName?:string,
         id?: string,
         info: CardParentInfo & CardChildInfo,
     }

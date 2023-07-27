@@ -231,17 +231,14 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
             >
                     <div className='flex justify-betweeen' style={{alignItems: 'middle'}}>
                         <MyFormItemGroup prefix={["user"]}> 
-                            <MyFormItemGroup prefix={["name"]}                            
-                            >
-                                <MyFormItem                                    
-                                    name="firstAgent"                                    
-                                >
-
+                            <MyFormItemGroup prefix={["name"]}>
+                                <MyFormItem name="firstAgent">
                                     <div style={{marginBottom: '15px'}}>Введите первого контрагента</div>
                                     <div style={{display: 'flex'}}>
                                         <div style={{display: 'flex', flexDirection: 'column', width: '700px'}}>
                                             <Form.Item name={['firstContragent']} rules={[{ required: true, message: 'Введите имя контрагента' }]}>
                                                 <Select
+                                                    style={{maxWidth: '370px'}}
                                                     onKeyDown={onEnterKeyDownHandler}
                                                     open={isFirstSelectOpen}
                                                     showSearch
@@ -259,7 +256,6 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
                                                 </Select>
                                             </Form.Item>
                                                 <InputFirstFilters />
-
                                         </div>
                                         <div style={{display: 'flex', flexDirection: 'column', margin: 'auto 15px'}} >
                                             <Checkbox.Group                
@@ -274,15 +270,14 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
                                                         <Checkbox value={'People'} style={{margin: 'auto'}}></Checkbox><UserOutlined style={{fontSize: '40px'}}/>
                                                     </div>
                                             </Checkbox.Group>
-
                                         </div>
                                     </div>
                                 </MyFormItem>
                                 {<Button
                                     type="primary"
                                     htmlType="submit"
-                                    className=" bg-blue-600 ml-auto"
-                                    style={{width: '140px', display: 'block', margin: 'auto', height: '140px', borderRadius: '50%'}}
+                                    className="  ml-auto"
+                                    style={{width: '140px', display: 'block', margin: 'auto', height: '140px', borderRadius: '50%', background: '#094B73'}}
                                 >
                                     <div style={{display: 'flex', justifyContent: 'center', gap: '10px', flexDirection: 'column'}}>
                                         <div style={{fontSize: '20px'}}>Поиск</div> {isLoading 
@@ -296,11 +291,12 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
                                     <div style={{marginBottom: '15px'}}>Введите второго контрагента</div>
                                     <div style={{display: 'flex'}}>
                                                 <Checkbox.Group 
-                                                    style={{userSelect: 'none'}}
+                                                    style={{userSelect: 'none',}}
                                                     defaultValue={secondFilters} 
                                                     onChange={onChangeSecondCheckboxes}>
                                                         <div style={{margin: 'auto 0', display: 'flex', gap: '10px'}}>
-                                                            <ShopOutlined style={{fontSize: '40px'}}/><Checkbox value={'Company'} ></Checkbox>
+                                                            <ShopOutlined style={{fontSize: '40px'}}/>
+                                                                <Checkbox value={'Company'}></Checkbox>
                                                         </div>
                                                         <div style={{margin: 'auto 0', display: 'flex', gap: '10px'}}>
                                                             <UserOutlined style={{fontSize: '40px'}}/><Checkbox value={'People'}></Checkbox>
@@ -308,7 +304,8 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
                                                 </Checkbox.Group>
                                         <div style={{display: 'flex', flexDirection: 'column', width: '700px'}}>
                                             <Form.Item name={['secondContragent']}>
-                                                <Select
+                                                <Select                                             
+                                                    style={{maxWidth: '370px'}}
                                                     onKeyDown={onEnterKeyDownHandler}
                                                     open={isSecondSelectOpen}
                                                     showSearch

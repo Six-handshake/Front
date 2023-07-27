@@ -1,7 +1,6 @@
 import ReactFlow, {
   useNodesState,
-  useEdgesState,
-  Background} from 'reactflow';
+  useEdgesState } from 'reactflow';
 import 'reactflow/dist/style.css';
 import { edgeTypes, nodeTypes } from './const';
 import { useEffect, useState } from 'react';
@@ -15,7 +14,6 @@ import { convertData } from '../../calculate';
     const storeNodes = useData((state) => state.nodes);
     const storeEdges = useData((state) => state.edges);
     const [updatingKey, setUpdatingKey] = useState(0);
-    const switchLoading = useData((state) => state.switchIsLoading)
 
 useEffect(() => {
   const contragentsData : ContragentsDataType = {edges: storeEdges, nodes: storeNodes}
@@ -30,16 +28,16 @@ useEffect(() => {
       <div style={{fontSize: '32px', textAlign: 'center', borderBottom: '1px solid black'}}>Визуализация связей контрагентов</div>  
       {
         <ReactFlow
-        defaultViewport={{x: 50, y: 50, zoom: 0.5}}
-        key={updatingKey}
-        nodes={nodes}
-        edges={edges}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        maxZoom={2.5}
-        minZoom={0.45}
-        edgeTypes={edgeTypes}
-        nodeTypes={nodeTypes} >
+          defaultViewport={{x: 50, y: 50, zoom: 0.5}}
+          key={updatingKey}
+          nodes={nodes}
+          edges={edges}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          maxZoom={2.5}
+          minZoom={0.45}
+          edgeTypes={edgeTypes}
+          nodeTypes={nodeTypes} >
         </ReactFlow>
       }        
     </>

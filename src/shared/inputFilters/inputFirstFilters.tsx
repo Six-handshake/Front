@@ -86,12 +86,11 @@ const InputFirstFilters = () => {
 
    return (
     <>
-        <div style={{minHeight: '115px'}}>
+        <div style={{minHeight: '115px', maxWidth: '370px'}}>
             {<Form.Item>
                 <Select
                     mode="multiple"
                     allowClear
-                    style={{ width: '100%' }}
                     placeholder="Выберите регион"
                     onChange={handleChange}
                     options={options}
@@ -101,7 +100,7 @@ const InputFirstFilters = () => {
             </Form.Item>}
             {isCompany && <Form.Item>
                 <Select
-                    style={{width: '100%'}}
+                    style={{ }}
                     mode="multiple"
                     allowClear
                     placeholder="Выберите вид деятельности"

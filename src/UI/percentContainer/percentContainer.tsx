@@ -43,7 +43,7 @@ const PercentContainer: FC<EdgeProps> = ({
             borderRadius: 5,
             textAlign: 'center',
             verticalAlign: 'middle',
-            border: '2px solid yellow',
+            border: '2px solid #E0A219',
             fontSize: 12,
             fontWeight: 700,
             width: '45px'

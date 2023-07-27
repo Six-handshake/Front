@@ -11,10 +11,10 @@ const convertData = (responseContragents: ContragentsDataType) => {
         const position = getNodePosition(node.depth_x, node.depth_y, node.is_child)
         const nodeType = node.is_child ? 'childNode' : 'parentNode';
         const info = node.info.firstname !== undefined 
-            ? {lastName: node.info.lastname, firstName: node.info.firstname, inn: node.info.inn, }
+            ? {lastName: node.info.lastname, firstName: node.info.firstname, inn: node.info.inn, info: node.info}
             : {inn: node.info.inn, dataReg: node.info.reg_date, 
                 okved: node.info.okved, profit: node.info.profit,
-                 revenue: node.info.revenue, region: node.info.region}
+                 revenue: node.info.revenue, region: node.info.region, info: node.info}
 
         const data = { title: title, id: node.id, info: info }
   

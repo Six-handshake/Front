@@ -5,9 +5,9 @@ import { CardsBoard } from "../shared/cardsBoard";
 function App() {
     return (
         <Container>
-            <div className="w-full h-screen flex flex-col justify-left gap-7">
+            <div className="w-full flex flex-col justify-left">
                 <InputKonterAgent />    
-                <div style={{height: '150vh'}}>
+                <div style={{height: '100vh'}}>
                     <CardsBoard />
                 </div>
             </div>

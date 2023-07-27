@@ -9,7 +9,7 @@ const CardParent = memo<CardParentPropsType>(function CardParent({
     data
 }) {
     const [isModal, setIsModal] = useState(false);
-    const isCompany = data.info.firstname === undefined; 
+    const isCompany = data.info.profit !== undefined; 
 
     const handleCardClick = () => {
         setIsModal(true);
@@ -25,7 +25,7 @@ const CardParent = memo<CardParentPropsType>(function CardParent({
                 onClick={handleCardClick}
                 size={'small'}
                 className=""
-                style={{background: '#1677ff', cursor: 'pointer'}}            
+                style={{background: '#E0A219', cursor: 'pointer'}}            
                 >
                 <Handle type='target' position={Position.Right} style={{visibility: 'hidden'}}/>
                 <div className="text-white flex gap-2 flex-row items-center">
@@ -57,7 +57,10 @@ const CardParent = memo<CardParentPropsType>(function CardParent({
                     onOk={handleOnClose} 
                     onCancel={handleOnClose} 
                     title={'Информация о физическом лице'}
-                    footer={[<Button className={'modal-btn'} onClick={handleOnClose} type="primary" style={{background: '#4096ff'}}>Ок</Button>]}>
+                    footer={[<Button className={'modal-btn'} 
+                    onClick={handleOnClose} 
+                    type="primary" 
+                    style={{background: '#4096ff'}}>Ок</Button>]}>
                         <p><b>ФИО: </b> {data.title}</p>
                         <p><b>ИНН: </b>{data.info.inn}</p>
                 </Modal>}

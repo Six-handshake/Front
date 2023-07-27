@@ -22,7 +22,9 @@ const CardChild = memo<CardChildPropsType>(function CardChild({
 
     const handleOnClose = () => {
         setIsModal(false);
-    }
+    }//#E0A219
+    //094B73
+    //f1Da8D
 
     return (
         <>
@@ -31,8 +33,8 @@ const CardChild = memo<CardChildPropsType>(function CardChild({
                 extra={<BranchesOutlined style={{color: 'white'}}/>}
                 className=""
                 onClick={handleCardClick}
-                style={{background: '#2dc7cc', color: 'white', fontSize: 'large', minHeight: '150px', cursor: 'pointer'}}
-                headStyle={{background: '#2dc7cc', color: 'white', fontSize: 'x-large'}}>
+                style={{background: '#094B73', color: 'white', fontSize: 'large', minHeight: '150px', cursor: 'pointer'}}
+                headStyle={{background: '#094B73', color: 'white', fontSize: 'x-large'}}>
                     <Handle type='source' position={Position.Left} style={{visibility: 'hidden'}}/>
                     <Typography.Paragraph style={{color: 'white', fontSize: 'large'}}>{`${inn}`}</Typography.Paragraph>
                     <Handle type='target' position={Position.Bottom} style={{visibility: 'hidden'}}/>

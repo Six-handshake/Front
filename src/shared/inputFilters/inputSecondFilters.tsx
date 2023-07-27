@@ -87,7 +87,7 @@ const InputSecondFilters = () => {
 
    return (
     <>
-        <div style={{minHeight: '115px'}}>
+        <div style={{minHeight: '115px', maxWidth: '370px'}}>
             { 
             <Form.Item>
                 <Select
