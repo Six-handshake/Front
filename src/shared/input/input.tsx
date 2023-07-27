@@ -5,7 +5,7 @@ import { findRelationship, findCoincidence, FindRelationshipType, FindCoincidenc
 
 import { CheckboxValueType } from "antd/es/checkbox/Group";
 import { InputFirstFilters, InputSecondFilters } from "../inputFilters";
-import { SearchOutlined, ShopOutlined, UserOutlined } from "@ant-design/icons";
+import { LoadingOutlined, SearchOutlined, ShopOutlined, UserOutlined } from "@ant-design/icons";
 import useStore from "../../store/useStore";
 
 const MyFormItemContext = React.createContext<(string | number)[]>([]);
@@ -63,6 +63,9 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
         const setFirstFilters = useStore(state => state.setFirstFilters);
         const secondFilters = useStore(state => state.secondFilters);
         const setSecondFilters = useStore(state => state.setSecondFilters);
+
+        const switchLoading = useStore((state) => state.switchIsLoading);
+        const isLoading = useStore((state) => state.isLoading)
 
         const [firstCoincidenceList, setFirstCoincidenceList] = useState<
             SelectProps["options"]
@@ -157,6 +160,7 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
             };
 
             const response = findRelationship(header);
+            switchLoading();
             response
                 .then((response) => {
                     setNodes(response.data.nodes);
@@ -164,7 +168,9 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
                 })
                 .catch((err) => {
                     notification.error({ message: "Связи не найдены" });
-                });
+                    
+                })
+                .finally(() => switchLoading());
 
         };
 
@@ -272,16 +278,18 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
                                         </div>
                                     </div>
                                 </MyFormItem>
-                                <Button
+                                {<Button
                                     type="primary"
                                     htmlType="submit"
                                     className=" bg-blue-600 ml-auto"
                                     style={{width: '140px', display: 'block', margin: 'auto', height: '140px', borderRadius: '50%'}}
                                 >
                                     <div style={{display: 'flex', justifyContent: 'center', gap: '10px', flexDirection: 'column'}}>
-                                        <div style={{fontSize: '20px'}}>Поиск</div> <SearchOutlined style={{margin: 'auto 0', fontSize: '25px'}}/>
+                                        <div style={{fontSize: '20px'}}>Поиск</div> {isLoading 
+                                        ? <LoadingOutlined style={{margin: 'auto', fontSize: '25px'}}/>
+                                        : <SearchOutlined style={{margin: 'auto', fontSize: '25px'}}/>}
                                     </div>
-                                </Button>
+                                </Button>}
                                 <MyFormItem                                    
                                     name="secondAgent"
                                 >
@@ -296,13 +304,12 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
                                                         </div>
                                                         <div style={{margin: 'auto 0', display: 'flex', gap: '10px'}}>
                                                             <UserOutlined style={{fontSize: '40px'}}/><Checkbox value={'People'}></Checkbox>
-                                                        </div>
-                                                    
+                                                        </div>                                                    
                                                 </Checkbox.Group>
                                         <div style={{display: 'flex', flexDirection: 'column', width: '700px'}}>
                                             <Form.Item name={['secondContragent']}>
                                                 <Select
-                                                onKeyDown={onEnterKeyDownHandler}
+                                                    onKeyDown={onEnterKeyDownHandler}
                                                     open={isSecondSelectOpen}
                                                     showSearch
                                                     placeholder="Введите второго контрагента"
@@ -320,7 +327,6 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
                                             </Form.Item>                                            
                                             <InputSecondFilters />
                                         </div>
-
                                     </div>
                                 </MyFormItem>
                             </MyFormItemGroup>

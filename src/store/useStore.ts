@@ -12,6 +12,7 @@ interface storeStateProps {
     secondActivities: string[],
     firstRegions: string[],
     secondRegions: string[],
+    isLoading: boolean,
     setFirstFilters: (filters: CheckboxValueType[]) => void,
     setSecondFilters: (filters: CheckboxValueType[]) => void,
     setFirstActivities: (activities: ConvertedOkvedType[]) => void,
@@ -20,6 +21,7 @@ interface storeStateProps {
     setSecondRegions: (regions: ConvertedRegionType[]) => void,
     setNodes: (nodes: Node[]) => void,
     setEdges: (edges: Edge[]) => void,
+    switchIsLoading: () => void
 }
 
 const useStore = create<storeStateProps>((set) => ({
@@ -31,6 +33,7 @@ const useStore = create<storeStateProps>((set) => ({
     secondActivities: [],
     firstRegions: [],
     secondRegions: [],
+    isLoading: false,
     setNodes: (nodes: Node[]) => 
     {
             set(() => ({
@@ -77,6 +80,11 @@ const useStore = create<storeStateProps>((set) => ({
         const convertedRegions = regions.map((region) => String(region.id))
             set(() => ({
             secondRegions: convertedRegions
+        }))
+    },
+    switchIsLoading: () => {
+        set((state) => ({
+            isLoading: !state.isLoading
         }))
     }
 }));

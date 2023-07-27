@@ -15,14 +15,14 @@ import { convertData } from '../../calculate';
     const storeNodes = useData((state) => state.nodes);
     const storeEdges = useData((state) => state.edges);
     const [updatingKey, setUpdatingKey] = useState(0);
+    const switchLoading = useData((state) => state.switchIsLoading)
 
 useEffect(() => {
   const contragentsData : ContragentsDataType = {edges: storeEdges, nodes: storeNodes}
   const convertedData = convertData(contragentsData);
   setNodes(convertedData.nodes);  
   setEdges(convertedData.edges);
-  setUpdatingKey(prev => prev + 1) 
-
+  setUpdatingKey(prev => prev + 1)
 }, [setEdges, setNodes, storeEdges, storeNodes]);
 
   return (
