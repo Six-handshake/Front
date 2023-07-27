@@ -215,12 +215,22 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
             setIsSecondSelectOpen(false);
         };
 
-        const onFirstFieldChange = (value: string) => {
-            setFirstAgent(value);
+        const onFirstFieldChange = (value: string) => {            
+            if(value === undefined){
+                setFirstAgent('')
+            }
+            else{
+                setFirstAgent(value);
+            }
         };
 
         const onSecondFieldChange = (value: string) => {
-            setSecondAgent(value);
+            if(value === undefined){
+                setSecondAgent('')
+            }
+            else{
+                setSecondAgent(value);
+            }
         };
 
         return (
@@ -238,6 +248,7 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
                                         <div style={{display: 'flex', flexDirection: 'column', width: '700px'}}>
                                             <Form.Item name={['firstContragent']} rules={[{ required: true, message: 'Введите имя контрагента' }]}>
                                                 <Select
+                                                    allowClear
                                                     style={{maxWidth: '370px'}}
                                                     onKeyDown={onEnterKeyDownHandler}
                                                     open={isFirstSelectOpen}
@@ -304,7 +315,8 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
                                                 </Checkbox.Group>
                                         <div style={{display: 'flex', flexDirection: 'column', width: '700px'}}>
                                             <Form.Item name={['secondContragent']}>
-                                                <Select                                             
+                                                <Select 
+                                                    allowClear                                            
                                                     style={{maxWidth: '370px'}}
                                                     onKeyDown={onEnterKeyDownHandler}
                                                     open={isSecondSelectOpen}

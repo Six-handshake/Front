@@ -7,7 +7,7 @@ const convertData = (responseContragents: ContragentsDataType) => {
     const responseEdges = responseContragents.edges;
   
     const convertedNodes : Node[] = responseNodes.map((node) => {
-        const title = node.info.name === undefined ? `${node.info.firstname} ${node.info.lastname} ${node.info.patronymyic}` : node.info.name;
+        const title = node.info.name === undefined ? `${node.info.firstname} ${node.info.lastname} ${node.info.patronymic}` : node.info.name;
         const position = getNodePosition(node.depth_x, node.depth_y, node.is_child)
         const nodeType = node.is_child ? 'childNode' : 'parentNode';
         const info = node.info.firstname !== undefined 

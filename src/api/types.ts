@@ -1,7 +1,7 @@
 type PrivateFaceInfo = {    
     lastname: string,
     firstname: string,
-    patronymyic: string,
+    patronymic: string,
     inn: string     
 }
 

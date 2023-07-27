@@ -22,9 +22,7 @@ const CardChild = memo<CardChildPropsType>(function CardChild({
 
     const handleOnClose = () => {
         setIsModal(false);
-    }//#E0A219
-    //094B73
-    //f1Da8D
+    }
 
     return (
         <>
@@ -36,7 +34,7 @@ const CardChild = memo<CardChildPropsType>(function CardChild({
                 style={{background: '#094B73', color: 'white', fontSize: 'large', minHeight: '150px', cursor: 'pointer'}}
                 headStyle={{background: '#094B73', color: 'white', fontSize: 'x-large'}}>
                     <Handle type='source' position={Position.Left} style={{visibility: 'hidden'}}/>
-                    <Typography.Paragraph style={{color: 'white', fontSize: 'large'}}>{`${inn}`}</Typography.Paragraph>
+                    <Typography.Paragraph style={{color: 'white', fontSize: 'large'}}><b>ИНН: </b>{`${inn}`}</Typography.Paragraph>
                     <Handle type='target' position={Position.Bottom} style={{visibility: 'hidden'}}/>
             </Card>}
             <Modal 
