@@ -61,7 +61,7 @@ const CardParent = memo<CardParentPropsType>(function CardParent({
                     onClick={handleOnClose} 
                     type="primary" 
                     style={{background: '#4096ff'}}>Ок</Button>]}>
-                        <p><b>ФИО: </b> {data.title}</p>
+                        <p><b>ФИО: </b> {data.title} {data.info.lastname}</p>
                         <p><b>ИНН: </b>{data.info.inn}</p>
                 </Modal>}
         

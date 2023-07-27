@@ -5,7 +5,7 @@ import { findRelationship, findCoincidence, FindRelationshipType, FindCoincidenc
 
 import { CheckboxValueType } from "antd/es/checkbox/Group";
 import { InputFirstFilters, InputSecondFilters } from "../inputFilters";
-import { LoadingOutlined, SearchOutlined, ShopOutlined, UserOutlined } from "@ant-design/icons";
+import { BankOutlined, LoadingOutlined, SearchOutlined, UserOutlined } from "@ant-design/icons";
 import useStore from "../../store/useStore";
 
 const MyFormItemContext = React.createContext<(string | number)[]>([]);
@@ -233,7 +233,7 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
                         <MyFormItemGroup prefix={["user"]}> 
                             <MyFormItemGroup prefix={["name"]}>
                                 <MyFormItem name="firstAgent">
-                                    <div style={{marginBottom: '15px'}}>Введите первого контрагента</div>
+                                    <div style={{marginBottom: '15px', textAlign: 'center', marginRight: '65px'}}>Введите первого контрагента</div>
                                     <div style={{display: 'flex'}}>
                                         <div style={{display: 'flex', flexDirection: 'column', width: '700px'}}>
                                             <Form.Item name={['firstContragent']} rules={[{ required: true, message: 'Введите имя контрагента' }]}>
@@ -264,10 +264,11 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
                                                 onChange={onChangeFirstCheckboxes}                                                
                                                 >
                                                     <div style={{margin: 'auto', display: 'flex', gap: '10px'}}>
-                                                        <Checkbox value={'Company'}></Checkbox><ShopOutlined style={{fontSize: '40px'}}/>
+                                                        <Checkbox value={'Company'}></Checkbox><BankOutlined  style={{fontSize: '40px'}}/>
                                                     </div>
                                                     <div style={{margin: 'auto', display: 'flex', gap: '10px'}}>
-                                                        <Checkbox value={'People'} style={{margin: 'auto'}}></Checkbox><UserOutlined style={{fontSize: '40px'}}/>
+                                                        <Checkbox value={'People'} style={{margin: 'auto'}}></Checkbox>
+                                                        <UserOutlined style={{fontSize: '40px'}}/>
                                                     </div>
                                             </Checkbox.Group>
                                         </div>
@@ -288,15 +289,14 @@ const InputKonterAgent = memo<InputKonterAgentPropsType>(
                                 <MyFormItem                                    
                                     name="secondAgent"
                                 >
-                                    <div style={{marginBottom: '15px'}}>Введите второго контрагента</div>
+                                    <div style={{marginBottom: '15px', textAlign: 'center'}}>Введите второго контрагента</div>
                                     <div style={{display: 'flex'}}>
                                                 <Checkbox.Group 
                                                     style={{userSelect: 'none',}}
                                                     defaultValue={secondFilters} 
                                                     onChange={onChangeSecondCheckboxes}>
                                                         <div style={{margin: 'auto 0', display: 'flex', gap: '10px'}}>
-                                                            <ShopOutlined style={{fontSize: '40px'}}/>
-                                                                <Checkbox value={'Company'}></Checkbox>
+                                                            <BankOutlined style={{fontSize: '40px'}}/><Checkbox value={'Company'}></Checkbox>
                                                         </div>
                                                         <div style={{margin: 'auto 0', display: 'flex', gap: '10px'}}>
                                                             <UserOutlined style={{fontSize: '40px'}}/><Checkbox value={'People'}></Checkbox>
@@ -348,5 +348,6 @@ function findUniq(coincidences: ConvertedCoincidencesType[]): ConvertedCoinciden
     }
     return out;
 }
+
 
 export { InputKonterAgent };
